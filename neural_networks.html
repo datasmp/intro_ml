@@ -65,7 +65,6 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'neural_networks';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Supervised Learning-II" href="supervised_learning_II.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -166,13 +165,13 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="acknowledge.html">Acknowledgments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="supervised_learning_I.html">Supervised Learning-I</a></li>
-
-
-<li class="toctree-l1"><a class="reference internal" href="supervised_learning_II.html">Supervised Learning-II</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Neural Networks</a></li>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="acknowledgement.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to ML</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="supervised.html">Supervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="knn.html">kNN</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -770,10 +769,10 @@ Iteration 17, loss = 0.61531925
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 18, loss = 0.61137555
+Iteration 19, loss = 0.60772535
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 19, loss = 0.60772535
-Iteration 20, loss = 0.60979898
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 20, loss = 0.60979898
 Iteration 21, loss = 0.59862956
 Iteration 22, loss = 0.59582040
 Iteration 23, loss = 0.59304742
@@ -799,10 +798,10 @@ Iteration 42, loss = 0.47752650
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 43, loss = 0.46421296
+Iteration 44, loss = 0.47060687
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 44, loss = 0.47060687
-Iteration 45, loss = 0.43640046
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 45, loss = 0.43640046
 Iteration 46, loss = 0.43007907
 Iteration 47, loss = 0.42065256
 Iteration 48, loss = 0.41587375
@@ -828,10 +827,10 @@ Iteration 67, loss = 0.31751505
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 68, loss = 0.34006699
+Iteration 69, loss = 0.31476664
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 69, loss = 0.31476664
-Iteration 70, loss = 0.34187511
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 70, loss = 0.34187511
 Iteration 71, loss = 0.31426102
 Iteration 72, loss = 0.31473451
 Iteration 73, loss = 0.31176530
@@ -857,10 +856,10 @@ Iteration 92, loss = 0.32766030
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 93, loss = 0.32675385
+Iteration 94, loss = 0.37417123
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 94, loss = 0.37417123
-Iteration 95, loss = 0.32430026
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 95, loss = 0.32430026
 Iteration 96, loss = 0.29202709
 Iteration 97, loss = 0.29814625
 Iteration 98, loss = 0.30886402
@@ -1139,14 +1138,14 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
   super().__init__(activity_regularizer=activity_regularizer, **kwargs)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">1/5</span> <span class=" -Color -Color-Green">━━━━</span><span class=" -Color -Color-White">━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 28ms/step - accuracy: 0.6562 - loss: 0.6550
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">1/5</span> <span class=" -Color -Color-Green">━━━━</span><span class=" -Color -Color-White">━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 28ms/step - accuracy: 0.6562 - loss: 0.6554
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">5/5</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 580us/step - accuracy: 0.6244 - loss: 0.6631
+<span class=" -Color -Color-Bold">5/5</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 595us/step - accuracy: 0.6208 - loss: 0.6658
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.6558443903923035, 0.6363636255264282]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.6605795621871948, 0.6293706297874451]
 </pre></div>
 </div>
 </div>
@@ -1180,14 +1179,14 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/162</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">3s</span> 20ms/step - loss: 0.6130
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/162</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">3s</span> 20ms/step - loss: 5.4531
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 179us/step - loss: 0.7949
+<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 179us/step - loss: 9.3204
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7284613847732544
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.31592845916748
 </pre></div>
 </div>
 </div>
@@ -1205,10 +1204,10 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 199us/step
+<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 201us/step
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11653037182508097
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.6788444086230787
 </pre></div>
 </div>
 </div>
@@ -1229,10 +1228,10 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">484/484</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 159us/step
+<span class=" -Color -Color-Bold">484/484</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 160us/step
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.14287152414179427
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.909170045715753
 </pre></div>
 </div>
 </div>
@@ -1300,7 +1299,7 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cff2c38f53af922bb4f092a0fb47017edea3df6c3d41a5b0e77c7f2c2275922a.png" src="_images/cff2c38f53af922bb4f092a0fb47017edea3df6c3d41a5b0e77c7f2c2275922a.png" />
+<img alt="_images/1d3a8296a5daa1e0ea59f5a5371b40fa1e39afa2467d6eaa81bae74736cc2419.png" src="_images/1d3a8296a5daa1e0ea59f5a5371b40fa1e39afa2467d6eaa81bae74736cc2419.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1363,7 +1362,7 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.src.callbacks.history.History at 0x2b2021390&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.src.callbacks.history.History at 0x2b4302090&gt;
 </pre></div>
 </div>
 </div>
@@ -1377,14 +1376,14 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 13ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 <span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 14ms/step
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[6]
 
 <span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 5ms/step
 </pre></div>
@@ -1393,9 +1392,9 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 <span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 5ms/step
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.05114388, 0.00903658, 0.3420749 , 0.0286943 , 0.3095856 ,
-        0.00557537, 0.2312854 , 0.00924091, 0.01100049, 0.00236253]],
-      dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2.44410604e-01, 1.52807180e-02, 1.70236334e-01, 1.97303556e-02,
+        1.07069155e-02, 1.06284946e-12, 5.35002589e-01, 8.80215453e-07,
+        4.59385244e-03, 3.77794386e-05]], dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -1411,11 +1410,11 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">176/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━━</span><span class=" -Color -Color-White">━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 287us/step
+<span class=" -Color -Color-Bold">179/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━━</span><span class=" -Color -Color-White">━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 282us/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">313/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 282us/step
+<span class=" -Color -Color-Bold">313/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 278us/step
 </pre></div>
 </div>
 </div>
@@ -1428,7 +1427,7 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7176
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7752
 </pre></div>
 </div>
 </div>
@@ -1467,15 +1466,6 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
                 <footer class="prev-next-footer">
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="supervised_learning_II.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Supervised Learning-II</p>
-      </div>
-    </a>
 </div>
                 </footer>
               

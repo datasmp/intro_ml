@@ -1,0 +1,1563 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to ML &#8212; Introduction to Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Supervised Learning" href="supervised.html" />
+    <link rel="prev" title="Acknowledgments" href="acknowledgement.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro_ml.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="Introduction to Machine Learning - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="Introduction to Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro_ml.html">
+                    Introduction to Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="acknowledgement.html">Acknowledgments</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to ML</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="supervised.html">Supervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="knn.html">kNN</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datasmp/datasmp.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datasmp/datasmp.github.io/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/introduction.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to ML</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types">Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-processing">Data Processing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-data">Split Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-model">Building Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn">scikit-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">pandas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">numpy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics">statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math">math</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">matplotlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn">seaborn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keras">keras</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-supervised-ml">Example-1: Supervised ML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-the-data">Split the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-model">kNN Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-unsupervised-ml">Example-2: Unsupervised ML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tsne-model">TSNE model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-visualization">2d Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-reinforcement-ml">Example-3: Reinforcement ML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#without-learning">Without Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-learning">With Learning</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-ml">
+<h1>Introduction to ML<a class="headerlink" href="#introduction-to-ml" title="Permalink to this heading">#</a></h1>
+<p><em>Machine learning (ML)</em> is the process of learning from data or extracting knowledge from data. It constitutes a subset of</p>
+<p><em>Artificial Intelligence (AI)</em>, a broader term encompassing applications that may not rely on data, such as simple if-else statements where decisions are dictated by the user which might depend on some conditions.</p>
+<p>For instance, consider a code using an if-else statement to categorize an individual’s class based on whether their height exceeds 6 feet. This scenario exemplifies an Artificial Intelligence (AI) application. However, for it to qualify as a Machine Learning (ML) application, the boundary value of 6 feet must be determined by the algorithm itself, based on prior data comprising classes and heights of a specific group of individuals.</p>
+<p>Another term frequently associated with AI and ML is <em>Neural Networks</em>, also known as <em>Deep Learning</em>. These are ML algorithms primarily used for processing complex data types such as audio and image data. Neural networks can be perceived as compositions of numerous functions.</p>
+<p><em>Data science</em> involves using scientific methodologies, mathematics, and statistics to perform the aforementioned tasks.</p>
+<p><img alt="" src="_images/AI_ML_NN_DS.png" /></p>
+<section id="applications">
+<h2>Applications<a class="headerlink" href="#applications" title="Permalink to this heading">#</a></h2>
+<p>Machine Learning finds numerous applications across various fields. Here are a few examples:</p>
+<ul class="simple">
+<li><p>fraud detection</p></li>
+<li><p>image recognition</p></li>
+<li><p>speech recognition</p></li>
+<li><p>recommendation systems</p></li>
+<li><p>spam filtering</p></li>
+<li><p>tumor detection</p></li>
+<li><p>customer segmentation</p></li>
+<li><p>customer service (virtual assistants)</p></li>
+<li><p>chatbots</p></li>
+<li><p>algorithmic trading</p></li>
+<li><p>credit scoring</p></li>
+<li><p>risk assessment</p></li>
+</ul>
+</section>
+<section id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this heading">#</a></h2>
+<p>There are three primary types of machine learning:</p>
+<ol class="arabic simple">
+<li><p><strong>Supervised Learning</strong>: This method involves data that includes both input and output, known as labeled data. There are two main tasks in supervised learning:</p>
+<ul class="simple">
+<li><p>Classification: In classification tasks, the output is a categorical variable, such as class labels. For instance, in a spam filter, the output is either “spam” or “normal,” making it a categorical variable. Some classification algorithms include:</p>
+<ul>
+<li><p>k Nearest Neighbors (knn) Classifier</p></li>
+<li><p>Logistic Regression</p></li>
+<li><p>Decision Tree Classifier</p></li>
+<li><p>Support Vector Classifier</p></li>
+</ul>
+</li>
+<li><p>Regression: In regression tasks, the output is a continuous variable, such as a real number. For example, in house price prediction, the output can be any number within a range, making it a continuous variable. Some regression algorithms include:</p>
+<ul>
+<li><p>Linear Regression</p></li>
+<li><p>Decision Tree Regressor</p></li>
+<li><p>Support Vector Regressor</p></li>
+</ul>
+</li>
+<li><p>For more information on supervised machine learning algorithms, you can refer to the following <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html#supervised-learning">Supervised Learning Algorithms</a>.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p><strong>Unsupervised Learning</strong>: In this approach, the data consists solely of input features, with either no output present or not used. For instance, tasks like customer segmentation or topic identification in blog posts fall under this category.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Unsupervised learning can be applied to tasks such as:</p>
+<ul>
+<li><p>Clustering</p></li>
+<li><p>Dimensionality Reduction</p></li>
+<li><p>Visualization</p></li>
+<li><p>Anomaly and Novelty Detection</p></li>
+</ul>
+</li>
+<li><p>Some common unsupervised learning algorithms include:</p>
+<ul>
+<li><p>k-means</p></li>
+<li><p>PCA (Principal Component Analysis)</p></li>
+<li><p>t-SNE (t-distributed Stochastic Neighbor Embedding)</p></li>
+</ul>
+</li>
+<li><p>For more information on unsupervised machine learning algorithms, you can refer to the following <a class="reference external" href="https://scikit-learn.org/stable/unsupervised_learning.html">Unsupervised Learning Algorithms</a>.</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p><strong>Reinforcement Learning:</strong> In this approach, learning occurs through a system of rewards for positive actions and penalties for negative actions. This approach is commonly used in gaming algorithms.</p></li>
+</ol>
+<p><strong>Machine Learning Algorithms:</strong> Machine learning algorithms can be viewed as a collection of functions, each presenting a distinct approach to data modeling. The ML algorithms also involve selecting the most appropriate function from this collection that effectively captures the underlying patterns within the data.</p>
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>The data we typically handle has two-dimensional structure, and we use dataframes for its organization.</p>
+<ul class="simple">
+<li><p>Each row corresponds to a sample or instance within the dataset.</p></li>
+<li><p>Each column represents a feature or attribute inherent to the data.</p></li>
+</ul>
+<p>For instance, in the context of laboratory test results for patients:
+Each patient serves as a sample, with the various test parameters constituting the features.</p>
+<ul class="simple">
+<li><p>In the realm of data analysis, the terms “feature” and “attribute” are often used interchangeably, though they can carry slightly different connotations.</p>
+<ul>
+<li><p>While “attribute” typically refers solely to the label or category (Gender), “feature” encompasses both the label and its corresponding value (Gender = Male).</p></li>
+</ul>
+</li>
+</ul>
+<p>Data can be sourced from various outlets, including databases, online repositories, APIs, academic archives, governmental datasets.</p>
+<ul class="simple">
+<li><p>Built-in datasets in Python libraries: <a class="reference external" href="https://scikit-learn.org/stable/datasets.html">sklearn</a>, <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.load_dataset.html">seaborn</a>, <a class="reference external" href="https://keras.io/api/datasets/">keras</a>, <a class="reference external" href="https://www.tensorflow.org/datasets">tensorflow</a></p></li>
+<li><p>Repository websites: <a class="reference external" href="https://archive.ics.uci.edu/">UCI</a>, <a class="reference external" href="https://www.kaggle.com/datasets">Kaggle</a></p></li>
+<li><p>Government’s Data: <a class="reference external" href="https://data.gov/">U.S. Government’s Open Data</a>, <a class="reference external" href="https://data.census.gov/">Census Data</a></p></li>
+<li><p>API: <a class="reference external" href="https://pypi.org/project/yfinance/">yfinance</a></p></li>
+</ul>
+</section>
+<section id="data-processing">
+<h2>Data Processing<a class="headerlink" href="#data-processing" title="Permalink to this heading">#</a></h2>
+<p>Data Processing encompasses the systematic preparation of data to enhance its usage and optimize the performance of subsequent analytical tools. Within a data science project, a significant proportion, typically ranging from 80-90%, is dedicated to various data processing steps. These include:</p>
+<ul class="simple">
+<li><p>Domain comprehension</p></li>
+<li><p>Data sourcing</p></li>
+<li><p>Data wrangling and extraction</p></li>
+<li><p>Data cleansing</p></li>
+<li><p>Data preprocessing.</p></li>
+</ul>
+</section>
+<section id="split-data">
+<h2>Split Data<a class="headerlink" href="#split-data" title="Permalink to this heading">#</a></h2>
+<p>Following data preparation, it is customary to partition the dataset into three distinct subsets:</p>
+<ul class="simple">
+<li><p>Training Set: Used for constructing and training the model.</p>
+<ul>
+<li><p>This set is used by machine learning algorithms to identify a function that encapsulates the general trends observed in the training data, tailored to the specific task at hand.</p></li>
+</ul>
+</li>
+<li><p>Validation Set: Employed to compare and evaluate different models, facilitating the selection of the optimal one.</p></li>
+<li><p>Test Set: Reserved for evaluating the performance of the chosen model on unseen data, ensuring its generalization capabilities.</p></li>
+</ul>
+<p>For simplicity in our initial examples, we will split the data solely into Training and Test sets.</p>
+</section>
+<section id="building-model">
+<h2>Building Model<a class="headerlink" href="#building-model" title="Permalink to this heading">#</a></h2>
+<p>After data preparation and splitting, both supervised and unsupervised models can be constructed using the training set.
+Let’s delve into the process of constructing a model on a training set using a supervised learning algorithm</p>
+<p>In supervised learning algorithms, the primary objective is to construct a good  model (function) capable of accurately mapping input data to output data.</p>
+<ul class="simple">
+<li><p>A “good” model refers to one that not only performs well on the data used during its construction but also generalizes effectively to new, unseen data.</p></li>
+<li><p>Consider the following dataset, comprising 300 samples. Here, “X” denotes the input values, while “y” represents the corresponding output values.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="mi">3</span><span class="o">+</span><span class="n">noise</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+      <td>3.588017</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.003344</td>
+      <td>3.140075</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.006689</td>
+      <td>3.339624</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.010033</td>
+      <td>3.767031</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.013378</td>
+      <td>3.649275</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The green dots in the graph represent the samples, and in supervised learning, the algorithm endeavors to discover a model (function) represented by <span class="math notranslate nohighlight">\(f(x)=2x+3\)</span>.</p>
+<ul class="simple">
+<li><p>This model is derived from the green dots and closely aligns with them, capturing the general behavior exhibited by the points.</p></li>
+<li><p>The process of determining the model (function) is commonly referred to as building the model.</p></li>
+<li><p>The data used for constructing the model, such as the green dots in this instance, is known as the training set.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;y=2x+3&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;input (X)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;output (y)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/096247f859a38afc92b8c0150fb3037aadabcea679414bf720031f8efb81e9e3.png" src="_images/096247f859a38afc92b8c0150fb3037aadabcea679414bf720031f8efb81e9e3.png" />
+</div>
+</div>
+<p>This function can be used to predict the y value for a new X value  not present among the green dots. For instance, if
+<span class="math notranslate nohighlight">\(x = 0.55\)</span> the predicted <span class="math notranslate nohighlight">\(y\)</span> value by the function <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(f(0.55) = 2(0.55)+3=4.1\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;y=2x+3&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mf">4.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;predicted value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;input (X)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;output (y)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/329c2082e5a3bf0bb9621cfacf8b42a5df9bccd4057b1fef0ed2fb9a380066fc.png" src="_images/329c2082e5a3bf0bb9621cfacf8b42a5df9bccd4057b1fef0ed2fb9a380066fc.png" />
+</div>
+</div>
+</section>
+<section id="libraries">
+<h2>Libraries<a class="headerlink" href="#libraries" title="Permalink to this heading">#</a></h2>
+<p>We will use the following modules/libraries/packages.</p>
+<section id="scikit-learn">
+<h3>scikit-learn<a class="headerlink" href="#scikit-learn" title="Permalink to this heading">#</a></h3>
+<p><em>scikit-learn</em>, also known as sklearn, is a powerful and user-friendly toolkit for predictive data analysis. It provides a diverse array of classical machine learning tools, encompassing:</p>
+<ul class="simple">
+<li><p>ML algorithms for classification, regression, clustering, and dimensionality reduction.</p></li>
+<li><p>Model selection techniques.</p></li>
+<li><p>Datasets, comprising both toy and real-world examples.</p></li>
+<li><p>Preprocessing functionalities, such as normalization.</p></li>
+</ul>
+<p><img alt="" src="_images/sklearn.png" /></p>
+<ul class="simple">
+<li><p>Built on top of NumPy, SciPy, and matplotlib, scikit-learn provides robust support for data manipulation, visualization, and analysis.</p></li>
+<li><p>For further details, visit the official website: <a class="reference external" href="https://scikit-learn.org/stable/">sklearn</a>.</p></li>
+</ul>
+</section>
+<section id="pandas">
+<h3>pandas<a class="headerlink" href="#pandas" title="Permalink to this heading">#</a></h3>
+<p>Pandas is used for data wrangling and analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</section>
+<section id="numpy">
+<h3>numpy<a class="headerlink" href="#numpy" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Numpy is for scientific computing.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</section>
+<section id="statistics">
+<h3>statistics<a class="headerlink" href="#statistics" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Statistics offers statistics tools.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statistics</span>
+</pre></div>
+</div>
+</section>
+<section id="math">
+<h3>math<a class="headerlink" href="#math" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Math offers mathematical functions and constants.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+</pre></div>
+</div>
+</section>
+<section id="matplotlib">
+<h3>matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h3>
+<p>Matplotlib is for visualization.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</section>
+<section id="seaborn">
+<h3>seaborn<a class="headerlink" href="#seaborn" title="Permalink to this heading">#</a></h3>
+<p>Seaborn is for visualization.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</section>
+<section id="keras">
+<h3>keras<a class="headerlink" href="#keras" title="Permalink to this heading">#</a></h3>
+<p>Keras is for constructing neural network models</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span> 
+</pre></div>
+</div>
+</section>
+</section>
+<section id="example-1-supervised-ml">
+<h2>Example-1: Supervised ML<a class="headerlink" href="#example-1-supervised-ml" title="Permalink to this heading">#</a></h2>
+<p>In this example, we will use the <em>load_digits</em> dataset from sklearn, containing images of handwritten digits.</p>
+<ul class="simple">
+<li><p>The target output comprises digits ranging from 0 to 9.</p></li>
+<li><p>The objective is to classify each image according to its corresponding digit.</p></li>
+<li><p>Hence, this task is categorized as a classification problem.</p></li>
+</ul>
+<section id="import-data">
+<h3>Import Data<a class="headerlink" href="#import-data" title="Permalink to this heading">#</a></h3>
+<p>We import the <em>load_digits</em> dataset function from sklearn.datasets.</p>
+<ul class="simple">
+<li><p>The <em>load_digits()</em> returns a bunch object, akin to a dictionary.</p></li>
+<li><p>The key distinction is that bunch values can be also accessed using dot notation instead of square brackets (e.g., dictionary_name.key).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">load_digits</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sklearn.utils._bunch.Bunch
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The keys of the load_digits() bunch are as follows:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;data&#39;, &#39;target&#39;, &#39;frame&#39;, &#39;feature_names&#39;, &#39;target_names&#39;, &#39;images&#39;, &#39;DESCR&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The value corresponding to the <em>data</em> key represents the input data, consisting of 1797 images.</p></li>
+<li><p>Each image is represented as an array of shape (64,).</p></li>
+<li><p>Originally, these images are in an 8x8 format of integer pixels. However, they are combined row-wise into a one dimensional array instead of a two dimensional array.</p></li>
+<li><p>This formatting enables the data to be used in machine learning algorithms.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1797, 64)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The 1-dimensional representation of the first picture is:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.,  0.,  5., 13.,  9.,  1.,  0.,  0.,  0.,  0., 13., 15., 10.,
+       15.,  5.,  0.,  0.,  3., 15.,  2.,  0., 11.,  8.,  0.,  0.,  4.,
+       12.,  0.,  0.,  8.,  8.,  0.,  0.,  5.,  8.,  0.,  0.,  9.,  8.,
+        0.,  0.,  4., 11.,  0.,  1., 12.,  7.,  0.,  0.,  2., 14.,  5.,
+       10., 12.,  0.,  0.,  0.,  0.,  6., 13., 10.,  0.,  0.,  0.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(64,)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The value corresponding to the <em>images</em> key represents the input data in its original 2-dimensional array form, consisting of 8x8 images of integer pixels.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1797, 8, 8)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The original 8x8 form of the first picture is:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.,  0.,  5., 13.,  9.,  1.,  0.,  0.],
+       [ 0.,  0., 13., 15., 10., 15.,  5.,  0.],
+       [ 0.,  3., 15.,  2.,  0., 11.,  8.,  0.],
+       [ 0.,  4., 12.,  0.,  0.,  8.,  8.,  0.],
+       [ 0.,  5.,  8.,  0.,  0.,  9.,  8.,  0.],
+       [ 0.,  4., 11.,  0.,  1., 12.,  7.,  0.],
+       [ 0.,  2., 14.,  5., 10., 12.,  0.,  0.],
+       [ 0.,  0.,  6., 13., 10.,  0.,  0.,  0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The array obtained by <em>load_digits().data[0]</em> is the row-wise concatenation version of the aforementioned array.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Let’s visualize this image. It appears to resemble the digit 0. However, its quality may be lower due to its 8x8 size.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0fa7d8950b541e9b36db9dd4fa422c4543d11b6ff759b0d34fdc5814d85f44ba.png" src="_images/0fa7d8950b541e9b36db9dd4fa422c4543d11b6ff759b0d34fdc5814d85f44ba.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>The value corresponding to the target key represents the output data, consisting of the actual digits corresponding to these 1797 pictures.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1797,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 1, 2, ..., 8, 9, 8])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The first picture represents the digit zero.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s set X and y as the input and output data, respectively.</p>
+<ul class="simple">
+<li><p>X is an ndarray with a shape of (1797, 64).</p></li>
+<li><p>y is an ndarray with a shape of (1797,).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can also perform the above assignments using the return_X_y parameter.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="split-the-data">
+<h3>Split the Data<a class="headerlink" href="#split-the-data" title="Permalink to this heading">#</a></h3>
+<p>The <em>train_test_split</em> function is used to divide the data into training and test sets (we will omit the validation set for simplicity).</p>
+<ul class="simple">
+<li><p>By default, this function splits the data into 80% for training and 20% for testing.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((1347, 64), (450, 64), (1347,), (450,))
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The training set contains 1347 samples, while the test set contains 450 samples.</p></li>
+</ul>
+</section>
+<section id="knn-model">
+<h3>kNN Model<a class="headerlink" href="#knn-model" title="Permalink to this heading">#</a></h3>
+<p>We will use a simple machine learning algorithm known as k-Nearest Neighbors (knn).</p>
+<ul class="simple">
+<li><p>A knn classifier makes predictions by identifying the specified number of nearest neighbors in the training data.</p></li>
+<li><p>By default, this number is set to 5.</p></li>
+<li><p>The predicted label is determined by the most common output value among the closest training samples.</p></li>
+</ul>
+<p>First, we import the KNeighborsClassifier class.</p>
+<ul class="simple">
+<li><p>Then, we instantiate this class into an object called knn, which will handle building the model, making predictions, and evaluating scores</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="training">
+<h4>Training<a class="headerlink" href="#training" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The <em>fit()</em> method is employed to train the model.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">KNeighborsClassifier</label><div class="sk-toggleable__content"><pre>KNeighborsClassifier()</pre></div></div></div></div></div></div></div>
+</div>
+</section>
+<section id="prediction">
+<h4>Prediction<a class="headerlink" href="#prediction" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Now that the model is trained, we can proceed with predictions using the <em>predict()</em> method for the samples in the test set.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7, 3, 9, 4, 8, 8, 4, 8, 4, 5, 5, 7, 1, 8, 0, 3, 5, 5, 1, 7, 4, 3,
+       5, 3, 1, 2, 7, 4, 2, 5, 7, 6, 8, 9, 9, 6, 6, 5, 6, 2, 3, 1, 1, 6,
+       8, 3, 0, 4, 3, 8, 3, 1, 6, 5, 9, 2, 5, 3, 3, 1, 5, 2, 8, 8, 9, 6,
+       4, 4, 6, 6, 2, 3, 6, 3, 9, 7, 4, 2, 0, 2, 0, 7, 5, 0, 8, 6, 5, 4,
+       5, 3, 8, 3, 2, 0, 9, 3, 8, 6, 3, 4, 5, 9, 8, 6, 3, 6, 5, 2, 7, 9,
+       8, 5, 2, 6, 6, 5, 3, 9, 8, 0, 0, 2, 4, 3, 5, 8, 7, 4, 4, 2, 9, 9,
+       2, 0, 9, 5, 7, 8, 2, 0, 7, 0, 5, 8, 6, 1, 6, 7, 7, 4, 0, 4, 0, 0,
+       0, 5, 4, 8, 7, 7, 9, 5, 6, 3, 4, 5, 5, 0, 9, 0, 3, 4, 9, 0, 1, 7,
+       8, 7, 3, 4, 2, 0, 1, 2, 9, 1, 3, 6, 8, 9, 3, 6, 5, 8, 3, 6, 3, 8,
+       9, 0, 3, 5, 5, 1, 3, 7, 3, 8, 2, 0, 2, 9, 9, 1, 4, 5, 2, 2, 6, 3,
+       3, 0, 7, 2, 1, 7, 1, 0, 2, 0, 6, 8, 5, 6, 7, 3, 4, 8, 0, 1, 5, 5,
+       9, 3, 0, 4, 9, 6, 7, 7, 2, 6, 4, 2, 3, 7, 2, 1, 6, 6, 5, 0, 7, 4,
+       2, 8, 5, 5, 5, 7, 5, 6, 5, 5, 5, 0, 5, 8, 9, 1, 5, 7, 0, 0, 2, 0,
+       9, 7, 8, 7, 2, 1, 1, 4, 3, 7, 1, 0, 3, 7, 5, 3, 3, 1, 8, 9, 1, 0,
+       0, 0, 8, 6, 7, 2, 2, 5, 7, 1, 8, 0, 1, 7, 2, 4, 1, 8, 9, 4, 3, 4,
+       9, 7, 5, 7, 1, 2, 8, 5, 7, 0, 6, 8, 9, 2, 6, 1, 0, 7, 7, 9, 1, 7,
+       8, 7, 3, 6, 0, 4, 1, 7, 8, 3, 4, 9, 2, 5, 8, 0, 1, 9, 8, 0, 9, 7,
+       0, 2, 0, 7, 9, 7, 0, 3, 0, 3, 6, 4, 1, 0, 4, 8, 7, 6, 7, 4, 6, 5,
+       9, 4, 5, 2, 7, 4, 3, 2, 5, 0, 3, 8, 9, 9, 8, 2, 3, 3, 7, 7, 3, 3,
+       2, 0, 3, 8, 4, 5, 4, 9, 2, 4, 8, 4, 6, 6, 3, 8, 6, 6, 5, 7, 8, 4,
+       3, 6, 2, 3, 1, 0, 3, 3, 3, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>You can do prediction for any 8x8 picture after converting to a (1,64) shape ndarray.</p></li>
+<li><p>Let’s generate and visualize a random 8x8 ndarray and make a prediction for it.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">random_array</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f158205799f7a63964a847327746b6d374fdfd443a9f9e80856523ae0ee8c666.png" src="_images/f158205799f7a63964a847327746b6d374fdfd443a9f9e80856523ae0ee8c666.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_flatten_array</span> <span class="o">=</span> <span class="n">random_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">random_flatten_array</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 64)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The prediction for the random 8x8 array is 0.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">random_flatten_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="performance">
+<h4>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The performance of the model on the training set can be evaluated using the <em>score()</em> method.</p></li>
+<li><p>98% of the samples in the training set were predicted correctly, indicating a high level of accuracy.</p></li>
+<li><p>This score is also known as the training score.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9866369710467706
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The performance of the model on the test set can be evaluated using the <em>score()</em> method.</p></li>
+<li><p>98% of the samples in the test set were predicted correctly, indicating a high level of accuracy.</p></li>
+<li><p>This score is also known as the test score.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9866666666666667
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="example-2-unsupervised-ml">
+<h2>Example-2: Unsupervised ML<a class="headerlink" href="#example-2-unsupervised-ml" title="Permalink to this heading">#</a></h2>
+<p>The unsupervised machine learning algorithm TSNE can be employed to reduce the dimensionality of input data down to 2, facilitating visualization.</p>
+<section id="tsne-model">
+<h3>TSNE model<a class="headerlink" href="#tsne-model" title="Permalink to this heading">#</a></h3>
+<p>First, we import the TSNE class.</p>
+<ul class="simple">
+<li><p>Then, we instantiate this class into an object called tsne, which will handle building the model, reducing the dimension down to 2.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+<span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The load_digits() dataset contains 64 values for each sample, representing a 64-dimensional dataset.</p></li>
+<li><p>However, it’s possible to reduce the dimensionality without significant loss of information.</p></li>
+<li><p>This is particularly applicable to this dataset, as pixels close to boundaries are typically black and do not significantly contribute to distinguishing the pictures.</p></li>
+<li><p>Additionally, neighboring pixels are often very similar to each other.</p></li>
+<li><p>In the code below, dimension reduction is performed, transforming the 64-dimensional <em>X_train</em> dataset into the 2-dimensional <em>X_train_tsne</em>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1347, 64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_tsne</span> <span class="o">=</span> <span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_tsne</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1347, 2)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="d-visualization">
+<h3>2d Visualization<a class="headerlink" href="#d-visualization" title="Permalink to this heading">#</a></h3>
+<p>Using a scatterplot to visualize the 2-dimensional samples in <em>X_train_tsne</em>, which represent the images of handwritten digits, allows us to observe the samples as distinct groups.</p>
+<ul class="simple">
+<li><p>TSNE has effectively reduced the dimension and extracted clusters from the data.</p></li>
+<li><p>Each group likely corresponds to a specific digit.</p></li>
+<li><p>Since we only used the input data, we have no information about the labels of these clusters.</p></li>
+<li><p>However, despite not being able to label them, we can still observe the existence of clusters in the visualization.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X_train_tsne</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X_train_tsne</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/892f793cf8a7877902133fa576ad96306473a4d407e88213057b83463cb001ae.png" src="_images/892f793cf8a7877902133fa576ad96306473a4d407e88213057b83463cb001ae.png" />
+</div>
+</div>
+<p>Since we have the output data, we know the labels of the samples (images) and can visually assess the performance of TSNE.</p>
+<ul class="simple">
+<li><p>In the following scatter plot, each cluster determined by TSNE appears to correspond to a digit, with only a small number of samples appearing to deviate from this pattern.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X_train_tsne</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X_train_tsne</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;bright&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/74b6f658501a463f33c575568163038962f9481b7cd84ea9bd50880539e135b3.png" src="_images/74b6f658501a463f33c575568163038962f9481b7cd84ea9bd50880539e135b3.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="example-3-reinforcement-ml">
+<h2>Example-3: Reinforcement ML<a class="headerlink" href="#example-3-reinforcement-ml" title="Permalink to this heading">#</a></h2>
+<p>In this example, we will provide a simple scenario to illustrate the concept of reinforcement learning.</p>
+<ul class="simple">
+<li><p>Let’s consider an unfair die, where the probability of rolling a 1 is higher than the other numbers.</p></li>
+<li><p>Below are the probabilities associated with each face of the die:</p>
+<ul>
+<li><p>Probability of rolling a 1: 0.5</p></li>
+<li><p>Probability of rolling any other number: 0.1</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unfair_die</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">):</span>
+    <span class="n">prob_i</span> <span class="o">=</span> <span class="n">unfair_die</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">unfair_die</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The probability of </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> is </span><span class="si">{</span><span class="n">prob_i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability of 1 is 0.5
+The probability of 2 is 0.1
+The probability of 3 is 0.1
+The probability of 4 is 0.1
+The probability of 5 is 0.1
+The probability of 6 is 0.1
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will now develop a code that can learn from the outcomes of rolling this unfair die.</p>
+<section id="without-learning">
+<h3>Without Learning<a class="headerlink" href="#without-learning" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The following code initially only checks if the outcome of rolling the computer’s die matches that of the unfair die.</p></li>
+<li><p>Out of 100 trials, only 14 of them result in the same outcome.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">computer_die</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+    
+<span class="n">success</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">computer_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">computer_die</span><span class="p">)</span>
+    <span class="n">unfair_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unfair_die</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">computer_choice</span> <span class="o">==</span> <span class="n">unfair_choice</span><span class="p">:</span>
+        <span class="n">success</span> <span class="o">+=</span> <span class="mi">1</span>
+                       
+<span class="nb">print</span><span class="p">(</span><span class="n">success</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.14
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="with-learning">
+<h3>With Learning<a class="headerlink" href="#with-learning" title="Permalink to this heading">#</a></h3>
+<p>In the code below, the crucial addition is the line <em>computer_die.append(unfair_choice)</em>, which incorporates information about the behavior of the unfair die into the computer’s own die.</p>
+<ul class="simple">
+<li><p>This allows the computer to learn from the behavior of the unfair die.</p></li>
+<li><p>As a result, out of 100 trials, 25 of them now yield the same outcome.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">computer_die</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="n">success</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">computer_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">computer_die</span><span class="p">)</span>
+    <span class="n">unfair_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unfair_die</span><span class="p">)</span>
+    <span class="n">computer_die</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unfair_choice</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">computer_choice</span> <span class="o">==</span> <span class="n">unfair_choice</span><span class="p">:</span>
+        <span class="n">success</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">success</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.25
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>With an increase in the number of iterations, the user progressively learns more about the behavior of the unfair die, leading to an improved success rate in determining its behavior.</p></li>
+<li><p>For instance, when the number of iterations (N) is increased to 200, the success rate rises to 27%.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">computer_die</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="n">success</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">computer_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">computer_die</span><span class="p">)</span>
+    <span class="n">unfair_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unfair_die</span><span class="p">)</span>
+    <span class="n">computer_die</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unfair_choice</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">computer_choice</span> <span class="o">==</span> <span class="n">unfair_choice</span><span class="p">:</span>
+        <span class="n">success</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">success</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.27
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>When the number of iterations (N) is increased to 1000, the success rate rises to 32.7%.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1_000</span>
+<span class="n">computer_die</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="n">success</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">computer_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">computer_die</span><span class="p">)</span>
+    <span class="n">unfair_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unfair_die</span><span class="p">)</span>
+    <span class="n">computer_die</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unfair_choice</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">computer_choice</span> <span class="o">==</span> <span class="n">unfair_choice</span><span class="p">:</span>
+        <span class="n">success</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">success</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.327
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="acknowledgement.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Acknowledgments</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="supervised.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Supervised Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types">Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-processing">Data Processing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-data">Split Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-model">Building Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn">scikit-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">pandas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">numpy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics">statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math">math</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">matplotlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn">seaborn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keras">keras</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-supervised-ml">Example-1: Supervised ML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-the-data">Split the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-model">kNN Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-unsupervised-ml">Example-2: Unsupervised ML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tsne-model">TSNE model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-visualization">2d Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-reinforcement-ml">Example-3: Reinforcement ML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#without-learning">Without Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-learning">With Learning</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yusuf Danisman
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
