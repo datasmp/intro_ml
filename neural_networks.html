@@ -65,6 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'neural_networks';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="PCA" href="pca.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -150,8 +151,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo3.png" class="logo__image only-light" alt="Introduction to Machine Learning - Home"/>
-    <script>document.write(`<img src="_static/logo3.png" class="logo__image only-dark" alt="Introduction to Machine Learning - Home"/>`);</script>
+    <img src="_static/logo4.png" class="logo__image only-light" alt="Introduction to Machine Learning - Home"/>
+    <script>document.write(`<img src="_static/logo4.png" class="logo__image only-dark" alt="Introduction to Machine Learning - Home"/>`);</script>
   
   
 </a></div>
@@ -165,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="acknowledgement.html">Acknowledgments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to ML</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="supervised.html">Supervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -184,6 +185,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="pca.html">PCA</a></li>
 </ul>
 </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Neural Networks</a></li>
 </ul>
 
     </div>
@@ -377,16 +379,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-dl">Deep Learning (DL)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron">Perceptron</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp">MLP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-functions">Activation functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilayer-perceptron-mlp">Multilayer Perceptron (MLP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-functions">Activation Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-perceptron">sklearn Perceptron</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-mlp">sklearn MLP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-mlp-classifier">sklearn MLP Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-mlp-regressor">sklearn MLP Regressor</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorflow">Tensorflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keras">Keras</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">binary classification</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass">Multiclass</a></li>
 </ul>
 </li>
@@ -403,148 +405,99 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="neural-networks">
 <h1>Neural Networks<a class="headerlink" href="#neural-networks" title="Permalink to this heading">#</a></h1>
-<p><strong>History</strong></p>
+<p><img alt="" src="_images/neural_networks2.png" /></p>
+<p>Neural Networks (NN) are a subset of Machine Learning (ML) that function similarly to the human brain’s neural networks.</p>
 <ul class="simple">
-<li><p>introduced around 1940</p></li>
-<li><p>1960 break</p></li>
-<li><p>1980 started again</p></li>
-<li><p>1990 break</p></li>
-<li><p>2010 huge impprovement</p>
-<ul>
-<li><p>data</p></li>
-<li><p>computational power  (GPU cards)</p></li>
-<li><p>theoretical improvements</p></li>
+<li><p>At the core of this structure is the perceptron, a mathematical representation of a biological neuron.</p></li>
+<li><p>Similar to the cerebral cortex, a neural network can have multiple layers of interconnected perceptrons.</p></li>
+<li><p>Input values, or underlying data, pass through these “hidden layers” until they converge at the output layer.</p></li>
+<li><p>The output layer provides the final prediction, which could be a single node if the model outputs a number or multiple nodes in the case of a multiclass classification problem.</p></li>
+<li><p>The hidden layers in a NN perform transformations on the data to discern its relationship with the target variable.</p></li>
+<li><p>Each node in the network is assigned a weight, which multiplies the input value.</p></li>
+<li><p>As data passes through several layers, the network effectively transforms the data into something meaningful.</p></li>
+<li><p>The process of determining the optimal weights for these nodes is typically achieved using an algorithm called Backpropagation.</p></li>
 </ul>
-</li>
-</ul>
-<section id="deep-learning-dl">
-<h2>Deep Learning (DL)<a class="headerlink" href="#deep-learning-dl" title="Permalink to this heading">#</a></h2>
+<p><strong>History:</strong> The development of this field began around 1940, followed by a pause in progress around 1960.</p>
 <ul class="simple">
-<li><p>DL is a subset of ML</p></li>
-<li><p>works similar to the human brain (nerve)</p></li>
-<li><p>Some applications:</p>
+<li><p>It resumed in the 1980s but encountered another break in the 1990s.</p></li>
+<li><p>A significant resurgence occurred in the 2010s, driven by substantial improvements in</p>
 <ul>
-<li><p>autonomous vehicles</p></li>
-<li><p>real-time translation</p></li>
-<li><p>Google’s Deep Learning based AlphaGo beating the best Go player in the world,</p></li>
-</ul>
-</li>
-<li><p>NN are inspired by the structure of the cerebral cortex.</p>
-<ul>
-<li><p>At the basic level is the perceptron, the mathematical representation of a biological neuron.</p></li>
-<li><p>Like in the cerebral cortex, there can be several layers of interconnected perceptrons.</p></li>
-<li><p>Input values, or in other words our underlying data, get passed through this “network” of hidden layers until they eventually converge to the output layer.</p></li>
-<li><p>The output layer is our prediction: it might be one node if the model just outputs a number, or a few nodes if it’s a multiclass classification problem.</p></li>
-<li><p>The hidden layers of a NN perform modifications on the data to eventually feel out what its relationship with the target variable is.</p></li>
-<li><p>Each node has a weight, and it multiplies its input value by that weight. Do that over a few different layers, and the Net is able to essentially manipulate the data into something meaningful.</p></li>
-<li><p>To figure out what these small weights should be, we typically use an algorithm called Backpropagation.</p></li>
+<li><p>data availability</p></li>
+<li><p>computational power (especially with the advent of GPU cards)</p></li>
+<li><p>advancements in theoretical frameworks.</p></li>
 </ul>
 </li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
-<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;wrDo7wVXrBQ&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">65</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-        <iframe
-            width="800"
-            height="300"
-            src="https://www.youtube.com/embed/wrDo7wVXrBQ?start=65"
-            frameborder="0"
-            allowfullscreen
-            
-        ></iframe>
-        </div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
-<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;03p2CADwGF8&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-        <iframe
-            width="800"
-            height="300"
-            src="https://www.youtube.com/embed/03p2CADwGF8"
-            frameborder="0"
-            allowfullscreen
-            
-        ></iframe>
-        </div></div>
-</div>
+<p><strong>Application:</strong> Some notable applications of neural networks include</p>
+<ul class="simple">
+<li><p>autonomous vehicles, which rely on these models for navigation and decision-making</p></li>
+<li><p>real-time translation systems that enable instant language conversion</p></li>
+<li><p>Google’s Deep Learning-based AlphaGo, which famously defeated the world’s top Go player.</p></li>
+</ul>
+<p><strong>Examples:</strong> There are many different neural network (NN) structures that have been developed, some of which are highly complex and designed to handle intricate datasets such as images and language translation. Below are a few examples:</p>
 <p><img alt="" src="_images/nn_types.png" /></p>
-</section>
 <section id="perceptron">
 <h2>Perceptron<a class="headerlink" href="#perceptron" title="Permalink to this heading">#</a></h2>
+<p>A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html#sklearn.linear_model">perceptron</a> is an algorithm used for supervised learning of binary classifiers.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html#sklearn.linear_model.Perceptron">https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html#sklearn.linear_model.Perceptron</a></p></li>
-<li><p>A <strong>perceptron</strong> is an algorithm used for supervised learning of binary classifiers.</p></li>
-<li><p>A perceptron is a single-layer neural network (an artificial neuron) that does certain computations to detect features or business intelligence in the input data.</p></li>
-<li><p>The perceptron algorithm learns the weights for the input signals in order to draw a linear decision boundary. It consists of four main parts:</p>
-<ul>
-<li><p>input values,</p></li>
-<li><p>weights and bias,</p></li>
-<li><p>net sum</p></li>
-<li><p>an activation function.</p></li>
+<li><p>It is essentially a single-layer neural network (an artificial neuron) that performs computations to identify features or extract business intelligence from input data.</p></li>
 </ul>
-</li>
+<p>The perceptron algorithm learns the weights for the input signals to draw a linear decision boundary. It consists of four main components:</p>
+<ul class="simple">
+<li><p>Input values</p></li>
+<li><p>Weights and bias</p></li>
+<li><p>Net sum</p></li>
+<li><p>Activation function</p></li>
 </ul>
 <p><strong>How does a perceptron work?</strong></p>
 <ul class="simple">
-<li><p>The process begins by taking all the input values and multiplying them by their weights.</p></li>
-<li><p>Then, all of these multiplied values are added together to create the weighted sum.</p></li>
-<li><p>The weighted sum is then applied to the activation function, producing the perceptron’s output.</p></li>
-<li><p>The activation function plays the integral role of ensuring the output is mapped between required values.</p></li>
-<li><p>It is important to note that the weight of an input is indicative of the strength of a node.</p></li>
+<li><p>The process begins by multiplying each input value by its corresponding weight.</p></li>
+<li><p>These multiplied values are then summed to create the weighted sum.</p></li>
+<li><p>The weighted sum is passed through the activation function, which produces the perceptron’s output.</p></li>
+<li><p>The activation function is crucial as it maps the output to the desired range of values.</p></li>
+<li><p>The weight of an input reflects the strength or influence of that particular node in the network.</p></li>
 </ul>
 <p><img alt="" src="_images/perceptron.png" /></p>
 </section>
-<section id="mlp">
-<h2>MLP<a class="headerlink" href="#mlp" title="Permalink to this heading">#</a></h2>
+<section id="multilayer-perceptron-mlp">
+<h2>Multilayer Perceptron (MLP)<a class="headerlink" href="#multilayer-perceptron-mlp" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>A perceptron is always feedforward, that is, all the arrows are going in the direction of the output.</p></li>
-<li><p>Neural networks in general might have loops, and if so, are often called recurrent networks.</p></li>
-<li><p>A recurrent network is much harder to train than a feedforward network.</p></li>
-<li><p>Artificial neural network, which has input layer, output layer, and two or more trainable weight layers (hidden layers) constisting of perceptrons is called <strong>multilayer perceptron</strong></p></li>
+<li><p>A perceptron is always a feedforward network, meaning that all connections flow in the direction of the output.</p></li>
+<li><p>In contrast, some neural networks can have loops, and these are known as recurrent networks. Recurrent networks are generally more challenging to train compared to feedforward networks.</p></li>
+<li><p>An artificial neural network that consists of an input layer, an output layer, and two or more hidden layers of perceptrons is called a <strong>Multilayer Perceptron (MLP)</strong>.</p></li>
+<li><p>These hidden layers contain trainable weights and are crucial for capturing complex patterns in the data.</p></li>
 </ul>
 <ul class="simple">
-<li><p><strong>Lower Layers:</strong> Close to input layer</p></li>
-<li><p><strong>Upper Layers:</strong> Close to output layer</p></li>
-<li><p>Input Layer: accepts data as input to build the NN</p></li>
-<li><p>Hidden Layers: complex operations and feature extraction</p></li>
-<li><p>Output Layer: generate the predicted value(s)</p></li>
+<li><p><strong>Lower Layers</strong>: Layers that are closer to the input layer.</p></li>
+<li><p><strong>Upper Layers</strong>: Layers that are closer to the output layer.</p></li>
+<li><p><strong>Input Layer</strong>: Receives the data as input to build the neural network.</p></li>
+<li><p><strong>Hidden Layers</strong>: Perform complex operations and feature extraction.</p>
+<ul>
+<li><p><strong>Lower-Level Hidden Layers</strong>: Detect low-level structures, such as line segments and orientations.</p></li>
+<li><p><strong>Middle-Level Hidden Layers</strong>: Capture intermediate-level structures, like rectangles and circles.</p></li>
+<li><p><strong>Upper-Level Hidden Layers</strong>: Recognize complex structures, such as faces.</p></li>
 </ul>
-<ul class="simple">
-<li><p>Lower level hidden layers: low-level structuyres (line segments, orientation)</p></li>
-<li><p>Middle level hidden layers: intermediate level structures (rectangles, circles)</p></li>
-<li><p>Upper level hidden layers: complex structures (face)</p></li>
+</li>
+<li><p><strong>Output Layer</strong>: Generates the predicted value(s).</p></li>
 </ul>
 <p><img alt="" src="_images/mlp.png" /></p>
 <p><img alt="" src="_images/mlp_2_hidden.jpg" /></p>
 </section>
 <section id="activation-functions">
-<h2>Activation functions<a class="headerlink" href="#activation-functions" title="Permalink to this heading">#</a></h2>
+<h2>Activation Functions<a class="headerlink" href="#activation-functions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>The activation function applies a step rule (convert the numerical output into +1 or -1) to check if the output of the weighting function is greater than zero or not.</p></li>
-<li><p>Derivative of step function is zero</p></li>
-<li><p>It is easy and fast to compute the derivative of Relu (Rectified Linear Unit)</p>
-<ul>
-<li><p>default activation function for hidden layers</p></li>
-</ul>
-</li>
-<li><p>Some most used activation functions are:</p></li>
+<li><p>Activation functions are crucial for introducing non-linearity into neural networks, allowing them to model complex relationships.</p></li>
+<li><p>They also convert the network’s output into a desired range, facilitating various tasks and interpretations.</p></li>
+<li><p>The activation function of perceptron applies a step rule that converts the numerical output into either +1 or -1, determining whether the output of the weighting function is greater than zero.</p></li>
+<li><p>The derivative of the step function is zero, which limits its usefulness in some applications.</p></li>
+<li><p>The derivative of the ReLU (Rectified Linear Unit) function, however, is easy and fast to compute, making ReLU the default activation function for hidden layers in many neural networks.</p></li>
+<li><p>Some of the most commonly used activation functions include:</p></li>
 </ul>
 <p><img alt="" src="_images/activation.png" /></p>
 </section>
 <section id="sklearn-perceptron">
 <h2>sklearn Perceptron<a class="headerlink" href="#sklearn-perceptron" title="Permalink to this heading">#</a></h2>
+<p>The sklearn implementation of the Perceptron is designed exclusively for binary classification tasks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
@@ -648,12 +601,486 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="sklearn-mlp">
-<h2>sklearn MLP<a class="headerlink" href="#sklearn-mlp" title="Permalink to this heading">#</a></h2>
+<section id="sklearn-mlp-classifier">
+<h2>sklearn MLP Classifier<a class="headerlink" href="#sklearn-mlp-classifier" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 1, loss = 16.48366333
+Iteration 2, loss = 12.81163261
+Iteration 3, loss = 9.38188348
+Iteration 4, loss = 6.15284159
+Iteration 5, loss = 3.06556933
+Iteration 6, loss = 1.79209303
+Iteration 7, loss = 3.17472712
+Iteration 8, loss = 3.08159243
+Iteration 9, loss = 1.92127815
+Iteration 10, loss = 1.13278810
+Iteration 11, loss = 1.46585057
+Iteration 12, loss = 1.39154017
+Iteration 13, loss = 0.92836057
+Iteration 14, loss = 0.78011923
+Iteration 15, loss = 0.83217703
+Iteration 16, loss = 0.61431221
+Iteration 17, loss = 0.56937143
+Iteration 18, loss = 0.56185809
+Iteration 19, loss = 0.47847936
+Iteration 20, loss = 0.44624358
+Iteration 21, loss = 0.44303375
+Iteration 22, loss = 0.41074560
+Iteration 23, loss = 0.39071021
+Iteration 24, loss = 0.39527286
+Iteration 25, loss = 0.37482045
+Iteration 26, loss = 0.36508208
+Iteration 27, loss = 0.36345044
+Iteration 28, loss = 0.34420751
+Iteration 29, loss = 0.35248542
+Iteration 30, loss = 0.35820652
+Iteration 31, loss = 0.33047450
+Iteration 32, loss = 0.32809274
+Iteration 33, loss = 0.33135073
+Iteration 34, loss = 0.31658450
+Iteration 35, loss = 0.30966815
+Iteration 36, loss = 0.31942464
+Iteration 37, loss = 0.30854938
+Iteration 38, loss = 0.29585009
+Iteration 39, loss = 0.30295961
+Iteration 40, loss = 0.29983246
+Iteration 41, loss = 0.28709714
+Iteration 42, loss = 0.29224021
+Iteration 43, loss = 0.29280316
+Iteration 44, loss = 0.28575912
+Iteration 45, loss = 0.27984300
+Iteration 46, loss = 0.27572029
+Iteration 47, loss = 0.27650301
+Iteration 48, loss = 0.27705311
+Iteration 49, loss = 0.27238059
+Iteration 50, loss = 0.26795715
+Iteration 51, loss = 0.26710265
+Iteration 52, loss = 0.26566778
+Iteration 53, loss = 0.26244564
+Iteration 54, loss = 0.25973070
+Iteration 55, loss = 0.25797436
+Iteration 56, loss = 0.25627265
+Iteration 57, loss = 0.26035768
+Iteration 58, loss = 0.25627474
+Iteration 59, loss = 0.25119117
+Iteration 60, loss = 0.26167088
+Iteration 61, loss = 0.25440192
+Iteration 62, loss = 0.24775587
+Iteration 63, loss = 0.24523190
+Iteration 64, loss = 0.24275218
+Iteration 65, loss = 0.24167241
+Iteration 66, loss = 0.24242831
+Iteration 67, loss = 0.23827775
+Iteration 68, loss = 0.24398645
+Iteration 69, loss = 0.24202910
+Iteration 70, loss = 0.23572109
+Iteration 71, loss = 0.23727039
+Iteration 72, loss = 0.23337936
+Iteration 73, loss = 0.23346875
+Iteration 74, loss = 0.23899500
+Iteration 75, loss = 0.23339510
+Iteration 76, loss = 0.22764237
+Iteration 77, loss = 0.22792822
+Iteration 78, loss = 0.22632397
+Iteration 79, loss = 0.22439054
+Iteration 80, loss = 0.23286673
+Iteration 81, loss = 0.22896344
+Iteration 82, loss = 0.22125347
+Iteration 83, loss = 0.23183654
+Iteration 84, loss = 0.22694347
+Iteration 85, loss = 0.21848633
+Iteration 86, loss = 0.22199444
+Iteration 87, loss = 0.21896390
+Iteration 88, loss = 0.21821757
+Iteration 89, loss = 0.21905151
+Iteration 90, loss = 0.21624154
+Iteration 91, loss = 0.21536296
+Iteration 92, loss = 0.21462701
+Iteration 93, loss = 0.21469123
+Iteration 94, loss = 0.21447660
+Iteration 95, loss = 0.21302403
+Iteration 96, loss = 0.21229424
+Iteration 97, loss = 0.21648274
+Iteration 98, loss = 0.21629050
+Iteration 99, loss = 0.21052837
+Iteration 100, loss = 0.21421364
+Iteration 101, loss = 0.21446421
+Iteration 102, loss = 0.20951278
+Iteration 103, loss = 0.20624030
+Iteration 104, loss = 0.20192669
+Iteration 105, loss = 0.21262530
+Iteration 106, loss = 0.21059451
+Iteration 107, loss = 0.21493775
+Iteration 108, loss = 0.21247457
+Iteration 109, loss = 0.20827266
+Iteration 110, loss = 0.20797401
+Iteration 111, loss = 0.20133312
+Iteration 112, loss = 0.20384934
+Iteration 113, loss = 0.20201144
+Iteration 114, loss = 0.20074490
+Iteration 115, loss = 0.20184496
+Iteration 116, loss = 0.19870551
+Iteration 117, loss = 0.19868175
+Iteration 118, loss = 0.19710613
+Iteration 119, loss = 0.20023168
+Iteration 120, loss = 0.20204670
+Iteration 121, loss = 0.19841706
+Iteration 122, loss = 0.20835956
+Iteration 123, loss = 0.20492477
+Iteration 124, loss = 0.19585607
+Iteration 125, loss = 0.19476145
+Iteration 126, loss = 0.19599598
+Iteration 127, loss = 0.19738285
+Iteration 128, loss = 0.19462320
+Iteration 129, loss = 0.19506457
+Iteration 130, loss = 0.19915867
+Iteration 131, loss = 0.19156462
+Iteration 132, loss = 0.19539969
+Iteration 133, loss = 0.19634843
+Iteration 134, loss = 0.19588670
+Iteration 135, loss = 0.20413956
+Iteration 136, loss = 0.19834956
+Iteration 137, loss = 0.19123766
+Iteration 138, loss = 0.19483105
+Iteration 139, loss = 0.19387671
+Iteration 140, loss = 0.19259078
+Iteration 141, loss = 0.19223833
+Iteration 142, loss = 0.18983270
+Iteration 143, loss = 0.18933797
+Iteration 144, loss = 0.19138847
+Iteration 145, loss = 0.19166472
+Iteration 146, loss = 0.18864295
+Iteration 147, loss = 0.18947084
+Iteration 148, loss = 0.19269943
+Iteration 149, loss = 0.18982741
+Iteration 150, loss = 0.18771516
+Iteration 151, loss = 0.18809080
+Iteration 152, loss = 0.18868524
+Iteration 153, loss = 0.18643025
+Iteration 154, loss = 0.18793776
+Iteration 155, loss = 0.18796948
+Iteration 156, loss = 0.18672493
+Iteration 157, loss = 0.18804210
+Iteration 158, loss = 0.19320248
+Iteration 159, loss = 0.18657739
+Iteration 160, loss = 0.18376431
+Iteration 161, loss = 0.18392296
+Iteration 162, loss = 0.18839966
+Iteration 163, loss = 0.18637709
+Iteration 164, loss = 0.18340676
+Iteration 165, loss = 0.18405448
+Iteration 166, loss = 0.18144590
+Iteration 167, loss = 0.18537356
+Iteration 168, loss = 0.18235561
+Iteration 169, loss = 0.18115791
+Iteration 170, loss = 0.18049243
+Iteration 171, loss = 0.19164347
+Iteration 172, loss = 0.18817268
+Iteration 173, loss = 0.18164340
+Iteration 174, loss = 0.18231547
+Iteration 175, loss = 0.18247379
+Iteration 176, loss = 0.18297624
+Iteration 177, loss = 0.18000340
+Iteration 178, loss = 0.17792030
+Iteration 179, loss = 0.17749439
+Iteration 180, loss = 0.17690899
+Iteration 181, loss = 0.17636246
+Iteration 182, loss = 0.18374646
+Iteration 183, loss = 0.17832486
+Iteration 184, loss = 0.18365293
+Iteration 185, loss = 0.17856427
+Iteration 186, loss = 0.17180006
+Iteration 187, loss = 0.17422329
+Iteration 188, loss = 0.17642624
+Iteration 189, loss = 0.18214418
+Iteration 190, loss = 0.17378842
+Iteration 191, loss = 0.17172324
+Iteration 192, loss = 0.17496818
+Iteration 193, loss = 0.17304721
+Iteration 194, loss = 0.17511399
+Iteration 195, loss = 0.17253638
+Iteration 196, loss = 0.17902043
+Iteration 197, loss = 0.17125700
+Iteration 198, loss = 0.17631683
+Iteration 199, loss = 0.17193380
+Iteration 200, loss = 0.17034735
+Iteration 201, loss = 0.17172892
+Iteration 202, loss = 0.16704877
+Iteration 203, loss = 0.16867013
+Iteration 204, loss = 0.17092232
+Iteration 205, loss = 0.16752118
+Iteration 206, loss = 0.16417433
+Iteration 207, loss = 0.16560926
+Iteration 208, loss = 0.17149535
+Iteration 209, loss = 0.17522727
+Iteration 210, loss = 0.16526745
+Iteration 211, loss = 0.16374203
+Iteration 212, loss = 0.16300556
+Iteration 213, loss = 0.16167173
+Iteration 214, loss = 0.16248504
+Iteration 215, loss = 0.16371142
+Iteration 216, loss = 0.16203008
+Iteration 217, loss = 0.16724511
+Iteration 218, loss = 0.16135085
+Iteration 219, loss = 0.17389288
+Iteration 220, loss = 0.17035218
+Iteration 221, loss = 0.17628162
+Iteration 222, loss = 0.16054739
+Iteration 223, loss = 0.16880219
+Iteration 224, loss = 0.17565170
+Iteration 225, loss = 0.16507134
+Iteration 226, loss = 0.17451813
+Iteration 227, loss = 0.17056154
+Iteration 228, loss = 0.17301608
+Iteration 229, loss = 0.17051196
+Iteration 230, loss = 0.16668122
+Iteration 231, loss = 0.16029997
+Iteration 232, loss = 0.16629220
+Iteration 233, loss = 0.16676703
+Iteration 234, loss = 0.16736844
+Iteration 235, loss = 0.17426554
+Iteration 236, loss = 0.16744307
+Iteration 237, loss = 0.16491206
+Iteration 238, loss = 0.16478061
+Iteration 239, loss = 0.15547292
+Iteration 240, loss = 0.17035368
+Iteration 241, loss = 0.16562166
+Iteration 242, loss = 0.16326092
+Iteration 243, loss = 0.15869094
+Iteration 244, loss = 0.15821124
+Iteration 245, loss = 0.15700092
+Iteration 246, loss = 0.15862788
+Iteration 247, loss = 0.15296610
+Iteration 248, loss = 0.16287110
+Iteration 249, loss = 0.15694248
+Iteration 250, loss = 0.15857328
+Iteration 251, loss = 0.15849296
+Iteration 252, loss = 0.15297230
+Iteration 253, loss = 0.15222974
+Iteration 254, loss = 0.15356640
+Iteration 255, loss = 0.15494507
+Iteration 256, loss = 0.15569062
+Iteration 257, loss = 0.15171184
+Iteration 258, loss = 0.15147845
+Iteration 259, loss = 0.15576388
+Iteration 260, loss = 0.15798620
+Iteration 261, loss = 0.17893863
+Iteration 262, loss = 0.16553017
+Iteration 263, loss = 0.15408385
+Iteration 264, loss = 0.15127454
+Iteration 265, loss = 0.15195088
+Iteration 266, loss = 0.16409095
+Iteration 267, loss = 0.15138270
+Iteration 268, loss = 0.15846986
+Iteration 269, loss = 0.15182922
+Iteration 270, loss = 0.15035451
+Iteration 271, loss = 0.14948154
+Iteration 272, loss = 0.14941659
+Iteration 273, loss = 0.15032517
+Iteration 274, loss = 0.14903610
+Iteration 275, loss = 0.15271764
+Iteration 276, loss = 0.15103971
+Iteration 277, loss = 0.15617733
+Iteration 278, loss = 0.14783741
+Iteration 279, loss = 0.15065138
+Iteration 280, loss = 0.14969282
+Iteration 281, loss = 0.14763248
+Iteration 282, loss = 0.15189719
+Iteration 283, loss = 0.15060460
+Iteration 284, loss = 0.14922063
+Iteration 285, loss = 0.14919481
+Iteration 286, loss = 0.15226311
+Iteration 287, loss = 0.15100809
+Iteration 288, loss = 0.15163340
+Iteration 289, loss = 0.15047148
+Iteration 290, loss = 0.15687841
+Iteration 291, loss = 0.14531137
+Iteration 292, loss = 0.14673614
+Iteration 293, loss = 0.14824440
+Iteration 294, loss = 0.14748072
+Iteration 295, loss = 0.14680663
+Iteration 296, loss = 0.14665397
+Iteration 297, loss = 0.14508099
+Iteration 298, loss = 0.14577647
+Iteration 299, loss = 0.14373049
+Iteration 300, loss = 0.14457878
+Iteration 301, loss = 0.14374740
+Iteration 302, loss = 0.14498286
+Iteration 303, loss = 0.14385636
+Iteration 304, loss = 0.15194713
+Iteration 305, loss = 0.14832022
+Iteration 306, loss = 0.15762867
+Iteration 307, loss = 0.14536009
+Iteration 308, loss = 0.15134841
+Iteration 309, loss = 0.14521824
+Iteration 310, loss = 0.14210533
+Iteration 311, loss = 0.15498353
+Iteration 312, loss = 0.15618515
+Iteration 313, loss = 0.14091871
+Iteration 314, loss = 0.15249876
+Iteration 315, loss = 0.14219143
+Iteration 316, loss = 0.16047939
+Iteration 317, loss = 0.14719331
+Iteration 318, loss = 0.15271462
+Iteration 319, loss = 0.14382279
+Iteration 320, loss = 0.15290170
+Iteration 321, loss = 0.14422318
+Iteration 322, loss = 0.16657156
+Iteration 323, loss = 0.15165789
+Iteration 324, loss = 0.14354466
+Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. Stopping.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.9460093896713615, 0.9300699300699301)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(30, 10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(10, 20)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(20, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(30, 10), (10, 20), (20, 1)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">intercepts_</span><span class="p">),</span> <span class="n">clf</span><span class="o">.</span><span class="n">intercepts_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">intercepts_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, (10,), (20,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">),</span> <span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">coefs_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, (30, 10), (10, 20))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;activation&#39;: &#39;relu&#39;,
+ &#39;alpha&#39;: 0.0001,
+ &#39;batch_size&#39;: &#39;auto&#39;,
+ &#39;beta_1&#39;: 0.9,
+ &#39;beta_2&#39;: 0.999,
+ &#39;early_stopping&#39;: False,
+ &#39;epsilon&#39;: 1e-08,
+ &#39;hidden_layer_sizes&#39;: [10, 20],
+ &#39;learning_rate&#39;: &#39;constant&#39;,
+ &#39;learning_rate_init&#39;: 0.001,
+ &#39;max_fun&#39;: 15000,
+ &#39;max_iter&#39;: 1000,
+ &#39;momentum&#39;: 0.9,
+ &#39;n_iter_no_change&#39;: 10,
+ &#39;nesterovs_momentum&#39;: True,
+ &#39;power_t&#39;: 0.5,
+ &#39;random_state&#39;: 0,
+ &#39;shuffle&#39;: True,
+ &#39;solver&#39;: &#39;adam&#39;,
+ &#39;tol&#39;: 0.0001,
+ &#39;validation_fraction&#39;: 0.1,
+ &#39;verbose&#39;: True,
+ &#39;warm_start&#39;: False}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)[:</span><span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 0, 1, 0, 1])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sklearn-mlp-regressor">
+<h2>sklearn MLP Regressor<a class="headerlink" href="#sklearn-mlp-regressor" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_california_housing</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="n">X</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span><span class="o">.</span><span class="n">target</span>
@@ -671,82 +1098,6 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(20640, 8)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fetch_california_housing</span><span class="p">()</span><span class="o">.</span><span class="n">feature_names</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;MedInc&#39;,
- &#39;HouseAge&#39;,
- &#39;AveRooms&#39;,
- &#39;AveBedrms&#39;,
- &#39;Population&#39;,
- &#39;AveOccup&#39;,
- &#39;Latitude&#39;,
- &#39;Longitude&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fetch_california_housing</span><span class="p">()</span><span class="o">.</span><span class="n">DESCR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>.. _california_housing_dataset:
-
-California Housing dataset
---------------------------
-
-**Data Set Characteristics:**
-
-    :Number of Instances: 20640
-
-    :Number of Attributes: 8 numeric, predictive attributes and the target
-
-    :Attribute Information:
-        - MedInc        median income in block group
-        - HouseAge      median house age in block group
-        - AveRooms      average number of rooms per household
-        - AveBedrms     average number of bedrooms per household
-        - Population    block group population
-        - AveOccup      average number of household members
-        - Latitude      block group latitude
-        - Longitude     block group longitude
-
-    :Missing Attribute Values: None
-
-This dataset was obtained from the StatLib repository.
-https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html
-
-The target variable is the median house value for California districts,
-expressed in hundreds of thousands of dollars ($100,000).
-
-This dataset was derived from the 1990 U.S. census, using one row per census
-block group. A block group is the smallest geographical unit for which the U.S.
-Census Bureau publishes sample data (a block group typically has a population
-of 600 to 3,000 people).
-
-A household is a group of people residing within a home. Since the average
-number of rooms and bedrooms in this dataset are provided per household, these
-columns may take surprisingly large values for block groups with few households
-and many empty houses, such as vacation resorts.
-
-It can be downloaded/loaded using the
-:func:`sklearn.datasets.fetch_california_housing` function.
-
-.. topic:: References
-
-    - Pace, R. Kelley and Ronald Barry, Sparse Spatial Autoregressions,
-      Statistics and Probability Letters, 33 (1997) 291-297
 </pre></div>
 </div>
 </div>
@@ -779,18 +1130,16 @@ Iteration 15, loss = 0.62159136
 Iteration 16, loss = 0.62216359
 Iteration 17, loss = 0.61531925
 Iteration 18, loss = 0.61137555
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 19, loss = 0.60772535
+Iteration 19, loss = 0.60772535
 Iteration 20, loss = 0.60979898
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 21, loss = 0.59862956
+Iteration 21, loss = 0.59862956
 Iteration 22, loss = 0.59582040
 Iteration 23, loss = 0.59304742
 Iteration 24, loss = 0.59030457
 Iteration 25, loss = 0.58986838
-Iteration 26, loss = 0.58471890
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 26, loss = 0.58471890
 Iteration 27, loss = 0.57564664
 Iteration 28, loss = 0.56661063
 Iteration 29, loss = 0.56876346
@@ -808,18 +1157,16 @@ Iteration 40, loss = 0.50332306
 Iteration 41, loss = 0.50067107
 Iteration 42, loss = 0.47752650
 Iteration 43, loss = 0.46421296
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 44, loss = 0.47060687
+Iteration 44, loss = 0.47060687
 Iteration 45, loss = 0.43640046
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 46, loss = 0.43007907
+Iteration 46, loss = 0.43007907
 Iteration 47, loss = 0.42065256
 Iteration 48, loss = 0.41587375
 Iteration 49, loss = 0.41198637
 Iteration 50, loss = 0.37501025
-Iteration 51, loss = 0.37283979
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 51, loss = 0.37283979
 Iteration 52, loss = 0.36538064
 Iteration 53, loss = 0.36057374
 Iteration 54, loss = 0.35277758
@@ -837,18 +1184,16 @@ Iteration 65, loss = 0.34178269
 Iteration 66, loss = 0.31293900
 Iteration 67, loss = 0.31751505
 Iteration 68, loss = 0.34006699
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 69, loss = 0.31476664
+Iteration 69, loss = 0.31476664
 Iteration 70, loss = 0.34187511
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 71, loss = 0.31426102
+Iteration 71, loss = 0.31426102
 Iteration 72, loss = 0.31473451
 Iteration 73, loss = 0.31176530
 Iteration 74, loss = 0.33025574
 Iteration 75, loss = 0.31925191
-Iteration 76, loss = 0.31956479
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 76, loss = 0.31956479
 Iteration 77, loss = 0.31558307
 Iteration 78, loss = 0.31092478
 Iteration 79, loss = 0.33071734
@@ -866,18 +1211,16 @@ Iteration 90, loss = 0.29860242
 Iteration 91, loss = 0.31393978
 Iteration 92, loss = 0.32766030
 Iteration 93, loss = 0.32675385
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 94, loss = 0.37417123
+Iteration 94, loss = 0.37417123
 Iteration 95, loss = 0.32430026
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 96, loss = 0.29202709
+Iteration 96, loss = 0.29202709
 Iteration 97, loss = 0.29814625
 Iteration 98, loss = 0.30886402
 Iteration 99, loss = 0.31729025
 Iteration 100, loss = 0.32048075
-Iteration 101, loss = 0.29301587
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 101, loss = 0.29301587
 Iteration 102, loss = 0.29507638
 Iteration 103, loss = 0.30495718
 Iteration 104, loss = 0.29280272
@@ -1037,39 +1380,34 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </section>
 <section id="tensorflow">
 <h2>Tensorflow<a class="headerlink" href="#tensorflow" title="Permalink to this heading">#</a></h2>
+<p>TensorFlow (TF) is a free, open-source library for machine learning created by Google.</p>
 <ul class="simple">
-<li><p>TensorFlow (TF) is a free and open-source software library for machine learning developed by Google</p></li>
-<li><p>Supports NN and classical ML algorithms</p></li>
-<li><p>Originally developed to run large numerical computations</p></li>
-<li><p>Data is in the form of tensors (multi dimensional array)</p></li>
-<li><p>Execution is in the form of graphs</p></li>
-<li><p>It has a comprehensive, flexible ecosystem of tools, libraries and community resources that lets researchers push the state-of-the-art in ML and developers easily build and deploy ML powered applications.</p></li>
-<li><p>Some examples: TF can train and run deep neural networks for</p>
-<ul>
+<li><p>It supports both neural networks and traditional machine learning algorithms.</p></li>
+<li><p>Initially designed for executing large-scale numerical computations.</p></li>
+<li><p>Data is represented as tensors, which are multi-dimensional arrays.</p></li>
+<li><p>Computations are performed as data flow graphs.</p></li>
+<li><p>TensorFlow offers a robust and versatile ecosystem of tools, libraries, and community resources, enabling researchers to advance machine learning innovations and allowing developers to build and deploy machine learning-powered applications with ease.</p></li>
+</ul>
+<p><strong>Some Examples</strong>: TensorFlow can train and run deep neural networks for various tasks, such as</p>
+<ul class="simple">
+<li><p>image classification</p></li>
+<li><p>natural language processing</p></li>
+<li><p>object detection.</p></li>
 <li><p>handwritten digit classification,</p></li>
-<li><p>image recognition,</p></li>
-<li><p>word embeddings,</p></li>
-<li><p>recurrent neural networks,</p></li>
 <li><p>sequence-to-sequence models for machine translation,</p></li>
 <li><p>natural language processing,</p></li>
-</ul>
-</li>
 </ul>
 <p><img alt="" src="_images/tensorflow.png" /></p>
 </section>
 <section id="keras">
 <h2>Keras<a class="headerlink" href="#keras" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://keras.io/api/">Keras</a> is a high-level neural network library that runs on top of Theano or TensorFlow, offering a user-friendly API similar to scikit-learn for constructing neural networks in Python.</p>
 <ul class="simple">
-<li><p>Keras is a high-level library that’s built on top of Theano or TensorFlow.</p></li>
-<li><p>It provides a scikit-learn type API (written in Python) for building Neural Networks.</p></li>
-<li><p>Developers can use Keras to quickly build neural networks without worrying about the mathematical aspects of tensor algebra, numerical techniques, and optimization methods.</p></li>
-<li><p>You can build, train, evaluate and execute models</p></li>
-<li><p>You can use Tensorflow or Teano as the computation backend.</p></li>
-<li><p>Tenserflow is bundled with its own Keras: tf.keras</p></li>
-<li><p>Facebook’s Pytorch library is also very popular. (similar to Keras)</p></li>
+<li><p>It enables developers to quickly build, train, evaluate, and deploy models without needing to delve into the complexities of tensor algebra, numerical techniques, or optimization methods.</p></li>
+<li><p>Developers can leverage Keras to rapidly construct neural networks without needing to concern themselves with the underlying mathematics of tensor algebra, numerical methods, or optimization processes.</p></li>
+<li><p>Keras can utilize TensorFlow or Theano as its computational backend, and TensorFlow now includes its own integrated version, known as <em><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras">tf.keras</a></em>.</p></li>
+<li><p>Additionally, Facebook’s PyTorch library has gained significant popularity, offering functionality similar to Keras.</p></li>
 </ul>
-<p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras">https://www.tensorflow.org/api_docs/python/tf/keras</a>
-<a class="reference external" href="https://keras.io/api/">https://keras.io/api/</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -1079,11 +1417,10 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <section id="binary-classification">
-<h3>binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this heading">#</a></h3>
+<h3>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span><span class="o">.</span><span class="n">target</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
@@ -1097,7 +1434,7 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span> <span class="n">shape</span><span class="o">=</span> <span class="p">(</span><span class="mi">30</span><span class="p">,)</span> <span class="p">),</span> <span class="c1"># input layer</span>
 <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span> <span class="p">),</span>     <span class="c1"># hiddenlayer-I</span>
 <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span> <span class="mi">20</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span> <span class="p">),</span>     <span class="c1"># second hidden layer</span>
-<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span> <span class="p">),</span>      <span class="c1"># output layer</span>
+<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span> <span class="p">),</span>   <span class="c1"># output layer</span>
 <span class="p">])</span>
 </pre></div>
 </div>
@@ -1133,7 +1470,8 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;first_dense&#39;</span><span class="p">),</span>
+<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span>  <span class="n">name</span><span class="o">=</span><span class="s1">&#39;first_dense&#39;</span><span class="p">),</span>
 <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)</span>  <span class="p">])</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;sgd&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
@@ -1144,31 +1482,25 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/yusufdanisman/anaconda3/lib/python3.11/site-packages/keras/src/layers/core/dense.py:85: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
-  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">1/5</span> <span class=" -Color -Color-Green">━━━━</span><span class=" -Color -Color-White">━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 28ms/step - accuracy: 0.6562 - loss: 0.6551
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">5/5</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 593us/step - accuracy: 0.6208 - loss: 0.6656
+<span class=" -Color -Color-Bold">5/5</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 625us/step - accuracy: 0.6208 - loss: 0.6656
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.6603137254714966, 0.6293706297874451]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.6603060960769653, 0.6293706297874451]
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="regression">
-<h3>regression<a class="headerlink" href="#regression" title="Permalink to this heading">#</a></h3>
+<h3>Regression<a class="headerlink" href="#regression" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_california_housing</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span><span class="o">.</span><span class="n">target</span>
-
+<span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1177,8 +1509,8 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;first_dense&#39;</span><span class="p">),</span>
-<span class="c1"># keras.layers.Dense(2, activation=&#39;relu&#39;),</span>
+<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;first_dense&#39;</span><span class="p">),</span>
 <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="p">])</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;mse&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;adam&quot;</span><span class="p">)</span>
@@ -1189,14 +1521,14 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/162</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">3s</span> 20ms/step - loss: 0.5826
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/162</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">3s</span> 20ms/step - loss: 0.6126
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 170us/step - loss: 0.6560
+<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 176us/step - loss: 0.9313
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6269187331199646
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.839615523815155
 </pre></div>
 </div>
 </div>
@@ -1210,14 +1542,14 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/162</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/162</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 196us/step
+<span class=" -Color -Color-Bold">162/162</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 195us/step
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0857320165368416
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12667936597653984
 </pre></div>
 </div>
 </div>
@@ -1234,14 +1566,14 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">318/484</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━</span><span class=" -Color -Color-White">━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 158us/step
+<span class=" -Color -Color-Bold">315/484</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━</span><span class=" -Color -Color-White">━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 160us/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">484/484</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 158us/step
+<span class=" -Color -Color-Bold">484/484</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 159us/step
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11240066918156055
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.16876363035410136
 </pre></div>
 </div>
 </div>
@@ -1309,7 +1641,7 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c14fc740023062d110b87d239b82a7533c760e55900c447174435b307583a974.png" src="_images/c14fc740023062d110b87d239b82a7533c760e55900c447174435b307583a974.png" />
+<img alt="_images/f2ff0c5ff04ae9c0fd1e77d30f664b87fa963e805edf72773f53e9ee6435da1e.png" src="_images/f2ff0c5ff04ae9c0fd1e77d30f664b87fa963e805edf72773f53e9ee6435da1e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1372,7 +1704,7 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.src.callbacks.history.History at 0x2b4a2f9d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.src.callbacks.history.History at 0x2b2d39450&gt;
 </pre></div>
 </div>
 </div>
@@ -1393,18 +1725,18 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 <span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 14ms/step
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[6]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2]
 
 <span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 5ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 5ms/step
+<span class=" -Color -Color-Bold">1/1</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 6ms/step
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.2063446e-01, 1.3754878e-02, 1.9280103e-01, 3.5958569e-02,
-        3.9550867e-02, 4.5844071e-04, 5.7720762e-01, 1.0068291e-06,
-        1.9356772e-02, 2.7632830e-04]], dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.02247879e-01, 4.37179906e-03, 3.27909172e-01, 2.38751192e-02,
+        2.16354012e-01, 1.81043649e-03, 3.19030613e-01, 1.14623845e-05,
+        4.36384929e-03, 2.55925424e-05]], dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -1416,15 +1748,15 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/313</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">4s</span> 14ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">  1/313</span> <span class=" -Color -Color-White">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">4s</span> 15ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">170/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━</span><span class=" -Color -Color-White">━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 297us/step
+<span class=" -Color -Color-Bold">165/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━</span><span class=" -Color -Color-White">━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 306us/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-<span class=" -Color -Color-Bold">313/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 292us/step
+<span class=" -Color -Color-Bold">313/313</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 298us/step
 </pre></div>
 </div>
 </div>
@@ -1437,7 +1769,7 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7503
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7412
 </pre></div>
 </div>
 </div>
@@ -1476,6 +1808,15 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
                 <footer class="prev-next-footer">
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="pca.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PCA</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -1491,16 +1832,16 @@ Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-dl">Deep Learning (DL)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron">Perceptron</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp">MLP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-functions">Activation functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilayer-perceptron-mlp">Multilayer Perceptron (MLP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-functions">Activation Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-perceptron">sklearn Perceptron</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-mlp">sklearn MLP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-mlp-classifier">sklearn MLP Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-mlp-regressor">sklearn MLP Regressor</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorflow">Tensorflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keras">Keras</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">binary classification</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass">Multiclass</a></li>
 </ul>
 </li>
