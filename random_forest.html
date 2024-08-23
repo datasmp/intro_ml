@@ -187,6 +187,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="neural_networks.html">Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">Model Evaluation</a></li>
 </ul>
 
     </div>
@@ -523,6 +524,25 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ne</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">ne</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of Trees: </span><span class="si">{</span><span class="n">ne</span><span class="si">}</span><span class="s1"> --- Training Score: </span><span class="si">{</span><span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> --- Test Score: </span><span class="si">{</span><span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 10 --- Training Score: 0.95 --- Test Score: 0.97
+Number of Trees: 20 --- Training Score: 0.96 --- Test Score: 0.97
+Number of Trees: 40 --- Training Score: 0.97 --- Test Score: 0.97
+Number of Trees: 50 --- Training Score: 0.97 --- Test Score: 0.97
+Number of Trees: 100 --- Training Score: 0.96 --- Test Score: 0.96
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="feature-importances">
 <h3>Feature Importances<a class="headerlink" href="#feature-importances" title="Permalink to this heading">#</a></h3>
@@ -537,12 +557,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.00696898, 0.01802418, 0.02334352, 0.07134442, 0.00918977,
-       0.00557044, 0.07062371, 0.15283403, 0.00557071, 0.00362505,
-       0.05624478, 0.00139818, 0.01037832, 0.11248191, 0.00569722,
-       0.00531237, 0.01579401, 0.00999181, 0.00358505, 0.00115981,
-       0.02916747, 0.02374062, 0.11398362, 0.08695521, 0.00228112,
-       0.0076457 , 0.01611366, 0.10210788, 0.00917812, 0.01968834])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.03146148e-02, 5.10500369e-03, 6.17712997e-02, 5.35757452e-02,
+       1.98074648e-03, 7.26183129e-03, 6.82845741e-02, 1.15938370e-01,
+       1.33644616e-03, 2.47844515e-04, 3.15481379e-02, 3.82948809e-03,
+       1.07409521e-02, 3.77591122e-02, 0.00000000e+00, 1.17547311e-04,
+       1.22963830e-03, 4.54687870e-03, 0.00000000e+00, 4.11727249e-04,
+       1.33369060e-01, 1.89391783e-03, 1.85689644e-01, 6.42969350e-02,
+       8.69161951e-03, 8.48533691e-03, 2.85407256e-02, 1.22046376e-01,
+       2.51496314e-03, 8.47146445e-03])
 </pre></div>
 </div>
 </div>
@@ -557,7 +579,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/117854143a3cc970ad2db45580962e10a53046ad80fc070d5055ba73eb16f60b.png" src="_images/117854143a3cc970ad2db45580962e10a53046ad80fc070d5055ba73eb16f60b.png" />
+<img alt="_images/5e43951a1e200049f8fea0357dbe8aaf5ace9adb685fe4cf0f221a26e911ab93.png" src="_images/5e43951a1e200049f8fea0357dbe8aaf5ace9adb685fe4cf0f221a26e911ab93.png" />
 </div>
 </div>
 </section>
@@ -664,6 +686,89 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ne</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">ne</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of Trees: </span><span class="si">{</span><span class="n">ne</span><span class="si">}</span><span class="s1"> --- Training Score: </span><span class="si">{</span><span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> --- Test Score: </span><span class="si">{</span><span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 10 --- Training Score: 0.96 --- Test Score: 0.78
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 20 --- Training Score: 0.97 --- Test Score: 0.78
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 40 --- Training Score: 0.97 --- Test Score: 0.79
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 50 --- Training Score: 0.97 --- Test Score: 0.79
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 100 --- Training Score: 0.97 --- Test Score: 0.79
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ne</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">md</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">ne</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="n">md</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of Trees: </span><span class="si">{</span><span class="n">ne</span><span class="si">}</span><span class="s1"> --- Max Depth: </span><span class="si">{</span><span class="n">md</span><span class="si">}</span><span class="s1">--- Training Score: </span><span class="si">{</span><span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> --- Test Score: </span><span class="si">{</span><span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 10 --- Max Depth: 2--- Training Score: 0.47 --- Test Score: 0.45
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 10 --- Max Depth: 3--- Training Score: 0.57 --- Test Score: 0.54
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 10 --- Max Depth: 4--- Training Score: 0.64 --- Test Score: 0.60
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 10 --- Max Depth: 5--- Training Score: 0.68 --- Test Score: 0.64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 10 --- Max Depth: 10--- Training Score: 0.86 --- Test Score: 0.76
+Number of Trees: 20 --- Max Depth: 2--- Training Score: 0.47 --- Test Score: 0.45
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 20 --- Max Depth: 3--- Training Score: 0.57 --- Test Score: 0.54
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 20 --- Max Depth: 4--- Training Score: 0.63 --- Test Score: 0.60
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 20 --- Max Depth: 5--- Training Score: 0.68 --- Test Score: 0.64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 20 --- Max Depth: 10--- Training Score: 0.87 --- Test Score: 0.76
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 40 --- Max Depth: 2--- Training Score: 0.47 --- Test Score: 0.44
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 40 --- Max Depth: 3--- Training Score: 0.57 --- Test Score: 0.54
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 40 --- Max Depth: 4--- Training Score: 0.64 --- Test Score: 0.60
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 40 --- Max Depth: 5--- Training Score: 0.68 --- Test Score: 0.64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Trees: 40 --- Max Depth: 10--- Training Score: 0.87 --- Test Score: 0.76
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id2">
 <h3>Feature Importances<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
@@ -674,8 +779,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.52711817, 0.05849567, 0.04608825, 0.02952925, 0.03144784,
-       0.13345287, 0.08633289, 0.08753505])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.60126682, 0.05132849, 0.03458775, 0.01762482, 0.01736841,
+       0.1352393 , 0.07189581, 0.0706886 ])
 </pre></div>
 </div>
 </div>
@@ -690,7 +795,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/57b3684057c880302a82ba5e2b216c67817d9174916564ac6c74076a507d7e39.png" src="_images/57b3684057c880302a82ba5e2b216c67817d9174916564ac6c74076a507d7e39.png" />
+<img alt="_images/e8048bc3cb894a1e323b75cd0d54fd3e8b8dac29995c49c2668f7080cc3a2d64.png" src="_images/e8048bc3cb894a1e323b75cd0d54fd3e8b8dac29995c49c2668f7080cc3a2d64.png" />
 </div>
 </div>
 </section>

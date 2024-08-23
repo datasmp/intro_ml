@@ -65,6 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'model_evaluation';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Neural Networks" href="neural_networks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -150,8 +151,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo2.png" class="logo__image only-light" alt="Introduction to Machine Learning - Home"/>
-    <script>document.write(`<img src="_static/logo2.png" class="logo__image only-dark" alt="Introduction to Machine Learning - Home"/>`);</script>
+    <img src="_static/logo4.png" class="logo__image only-light" alt="Introduction to Machine Learning - Home"/>
+    <script>document.write(`<img src="_static/logo4.png" class="logo__image only-dark" alt="Introduction to Machine Learning - Home"/>`);</script>
   
   
 </a></div>
@@ -165,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="acknowledgement.html">Acknowledgments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to ML</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="supervised.html">Supervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -175,9 +176,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="decision_tree.html">Decision Tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="random_forest.html">Random Forest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xgboost.html">XGBoost</a></li>
-<li class="toctree-l2"><a class="reference internal" href="logistic_reg.html">Logistic Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_regression.html">Logistic Regression</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="unsupervised.html">Unsupervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="minmax.html">Scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans.html">K-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pca.html">PCA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="neural_networks.html">Neural Networks</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Model Evaluation</a></li>
 </ul>
 
     </div>
@@ -348,7 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -364,6 +375,28 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation">Cross Validation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cv-on-breast-cancer-dataset">CV on Breast Cancer Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cv-on-iris-data">CV on Iris Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-set">Validation Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-set-for-housing-data">Validation Set for Housing Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-search">Grid Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gs-on-breast-cancer-data">GS on Breast Cancer Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gs-on-iris-data">GS on Iris Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-grid-search">Manual Grid search</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -375,6 +408,1352 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="model-evaluation">
 <h1>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Permalink to this heading">#</a></h1>
+<p><img alt="" src="_images/model_evaluation2.png" /></p>
+<section id="cross-validation">
+<h2>Cross Validation<a class="headerlink" href="#cross-validation" title="Permalink to this heading">#</a></h2>
+<p>The data is repeatedly partitioned into distinct training and test sets, enabling the training of multiple models across these variations.</p>
+<ul class="simple">
+<li><p><strong>Model-1:</strong> The initial model is trained using the first fold as the test set, with the remaining folds comprising the training set.</p></li>
+<li><p><strong>Model-2:</strong> The subsequent model is trained using the second fold as the test set, while the remaining folds are utilized as the training set.</p></li>
+<li><p>This process continues with folds 3, 4, and 5, each acting as the test set in succession.</p></li>
+<li><p>For each of these five data partitions, accuracy is calculated to evaluate model performance.</p></li>
+</ul>
+<p><img alt="" src="_images/cross_validation.jpeg" /></p>
+<section id="cv-on-breast-cancer-dataset">
+<h3>CV on Breast Cancer Dataset<a class="headerlink" href="#cv-on-breast-cancer-dataset" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import breast cancer data</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="n">dataset_bc</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># X_bc, y_bc and shapes</span>
+<span class="n">X_bc</span> <span class="o">=</span> <span class="n">dataset_bc</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y_bc</span> <span class="o">=</span> <span class="n">dataset_bc</span><span class="o">.</span><span class="n">target</span>
+<span class="n">X_bc</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_bc</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((569, 30), (569,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># training  and test sets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_bc_train</span><span class="p">,</span> <span class="n">X_bc_test</span><span class="p">,</span> <span class="n">y_bc_train</span><span class="p">,</span> <span class="n">y_bc_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_bc</span><span class="p">,</span> <span class="n">y_bc</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instantiate the class into an object</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fit the model</span>
+<span class="n">rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bc_train</span><span class="p">,</span> <span class="n">y_bc_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier()</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train test scores</span>
+<span class="n">rfc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_bc_train</span><span class="p">,</span> <span class="n">y_bc_train</span><span class="p">),</span> <span class="n">rfc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_bc_test</span><span class="p">,</span> <span class="n">y_bc_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.0, 0.972027972027972)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cross validation</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="n">cross_val_score</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">X_bc</span><span class="p">,</span> <span class="n">y_bc</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.92982456, 0.93859649, 0.98245614, 0.96491228, 0.96460177])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">X_bc</span><span class="p">,</span> <span class="n">y_bc</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9631268436578171
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cv-on-iris-data">
+<h3>CV on Iris Data<a class="headerlink" href="#cv-on-iris-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># importiris data</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="n">dataset_iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># X_iris, y_iris and shapes</span>
+<span class="n">X_iris</span> <span class="o">=</span> <span class="n">dataset_iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y_iris</span> <span class="o">=</span> <span class="n">dataset_iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">X_iris</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_iris</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((150, 4), (150,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># training  and test sets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_iris_train</span><span class="p">,</span> <span class="n">X_iris_test</span><span class="p">,</span> <span class="n">y_iris_train</span><span class="p">,</span> <span class="n">y_iris_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_iris</span><span class="p">,</span> <span class="n">y_iris</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instantiate the class into an object</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fit the model</span>
+<span class="n">rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_iris_train</span><span class="p">,</span> <span class="n">y_iris_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier()</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train test scores</span>
+<span class="n">rfc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_iris_train</span><span class="p">,</span> <span class="n">y_iris_train</span><span class="p">),</span> <span class="n">rfc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_iris_test</span><span class="p">,</span> <span class="n">y_iris_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.0, 1.0)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cross validation</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="n">cross_val_score</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">X_iris</span><span class="p">,</span> <span class="n">y_iris</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.96666667, 0.96666667, 0.93333333, 0.93333333, 1.        ])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">X_iris</span><span class="p">,</span> <span class="n">y_iris</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.96
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="validation-set">
+<h2>Validation Set<a class="headerlink" href="#validation-set" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The test set should not be used for parameter selection, as this could lead to overfitting.</p></li>
+<li><p>The accuracy obtained from the test set might not generalize well to new, unseen data.</p></li>
+<li><p>A common solution is to split the data into three distinct subsets:</p>
+<ol class="arabic simple">
+<li><p><strong>Training Set</strong>: Used to train the model.</p></li>
+<li><p><strong>Validation Set</strong>: Used to tune model parameters and select the best model.</p></li>
+<li><p><strong>Test Set</strong>: Used for the final evaluation of model performance on unseen data.
+<img alt="" src="_images/validation.jpeg" /></p></li>
+</ol>
+</li>
+</ul>
+<section id="validation-set-for-housing-data">
+<h3>Validation Set for Housing Data<a class="headerlink" href="#validation-set-for-housing-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_california_housing</span>
+<span class="n">Xh</span><span class="p">,</span> <span class="n">yh</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">Xh_train_valid</span><span class="p">,</span> <span class="n">Xh_test</span><span class="p">,</span> <span class="n">yh_train_valid</span><span class="p">,</span> <span class="n">yh_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xh</span><span class="p">,</span> <span class="n">yh</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">Xh_train</span><span class="p">,</span> <span class="n">Xh_valid</span><span class="p">,</span> <span class="n">yh_train</span><span class="p">,</span> <span class="n">yh_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xh_train_valid</span><span class="p">,</span> <span class="n">yh_train_valid</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">Xh_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Xh_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Xh_test</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((11610, 8), (3870, 8), (5160, 8))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">md</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="n">xgb</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+    <span class="n">xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xh_train</span><span class="p">,</span> <span class="n">yh_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;max_depth = </span><span class="si">{</span><span class="n">md</span><span class="si">}</span><span class="s1">  ---&gt;  Validation Score = </span><span class="si">{</span><span class="n">xgb</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xh_valid</span><span class="p">,</span><span class="w"> </span><span class="n">yh_valid</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>max_depth = 1  ---&gt;  Validation Score = 0.70
+max_depth = 2  ---&gt;  Validation Score = 0.78
+max_depth = 3  ---&gt;  Validation Score = 0.80
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>max_depth = 4  ---&gt;  Validation Score = 0.81
+max_depth = 5  ---&gt;  Validation Score = 0.81
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xgb</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xh_train_valid</span><span class="p">,</span> <span class="n">yh_train_valid</span><span class="p">)</span>
+<span class="n">xgb</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xh_train_valid</span><span class="p">,</span> <span class="n">yh_train_valid</span><span class="p">),</span> <span class="n">xgb</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xh_test</span><span class="p">,</span> <span class="n">yh_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.8812581464722442, 0.8328913896385808)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="grid-search">
+<h2>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Grid Search is a technique for tuning a model’s parameters.</p></li>
+<li><p>It exhaustively evaluates all possible combinations of specified parameters to identify the best set for optimal performance.
+<img alt="" src="_images/grid_search.jpeg" /></p></li>
+</ul>
+<section id="gs-on-breast-cancer-data">
+<h3>GS on Breast Cancer Data<a class="headerlink" href="#gs-on-breast-cancer-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instantiate the GridSearchCV class with the model rfc,</span>
+<span class="c1">#the parameter grid to search (param_grid), and the cross-validation strategy</span>
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fit</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bc_train</span><span class="p">,</span> <span class="n">y_bc_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-3 {color: black;background-color: white;}#sk-container-id-3 pre{padding: 0;}#sk-container-id-3 div.sk-toggleable {background-color: white;}#sk-container-id-3 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-3 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-3 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-3 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-3 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-3 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-3 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-3 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-3 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-3 div.sk-item {position: relative;z-index: 1;}#sk-container-id-3 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-3 div.sk-item::before, #sk-container-id-3 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-3 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-3 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-3 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-3 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-3 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-3 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-3 div.sk-label-container {text-align: center;}#sk-container-id-3 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-3 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=5, estimator=RandomForestClassifier(),
+             param_grid={&#x27;max_depth&#x27;: [3, 5, 7],
+                         &#x27;n_estimators&#x27;: [5, 10, 20, 30]})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">GridSearchCV</label><div class="sk-toggleable__content"><pre>GridSearchCV(cv=5, estimator=RandomForestClassifier(),
+             param_grid={&#x27;max_depth&#x27;: [3, 5, 7],
+                         &#x27;n_estimators&#x27;: [5, 10, 20, 30]})</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">estimator: RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier()</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier()</pre></div></div></div></div></div></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># best_params</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 10}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># best scores</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9647879616963065
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># training score</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_bc_train</span><span class="p">,</span> <span class="n">y_bc_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9929577464788732
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test score</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_bc_test</span><span class="p">,</span> <span class="n">y_bc_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.951048951048951
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># best estimator</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-4 {color: black;background-color: white;}#sk-container-id-4 pre{padding: 0;}#sk-container-id-4 div.sk-toggleable {background-color: white;}#sk-container-id-4 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-4 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-4 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-4 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-4 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-4 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-4 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-4 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-4 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-4 div.sk-item {position: relative;z-index: 1;}#sk-container-id-4 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-4 div.sk-item::before, #sk-container-id-4 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-4 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-4 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-4 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-4 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-4 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-4 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-4 div.sk-label-container {text-align: center;}#sk-container-id-4 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-4 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(max_depth=5, n_estimators=10)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" checked><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier(max_depth=5, n_estimators=10)</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># details: cv_rsults</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">cv_results_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;mean_fit_time&#39;: array([0.00310941, 0.00578523, 0.01116629, 0.01661663, 0.00308347,
+        0.00592761, 0.01163616, 0.01730199, 0.00330129, 0.00625091,
+        0.01225772, 0.01945653]),
+ &#39;std_fit_time&#39;: array([1.14820308e-04, 2.56740391e-05, 9.02943003e-05, 2.29105115e-04,
+        5.26197960e-05, 9.30133673e-05, 1.80329802e-04, 1.85400971e-04,
+        1.41107596e-04, 1.79670912e-04, 5.14157736e-04, 7.49557825e-04]),
+ &#39;mean_score_time&#39;: array([0.00028963, 0.00036869, 0.00053782, 0.00071483, 0.00024986,
+        0.00034194, 0.00051765, 0.00070047, 0.0002759 , 0.00035653,
+        0.00054574, 0.00077305]),
+ &#39;std_score_time&#39;: array([2.33676481e-05, 4.29841655e-06, 9.44137573e-06, 1.79111868e-05,
+        3.92920763e-06, 4.63636790e-06, 2.60040249e-06, 1.64816058e-05,
+        2.04219953e-05, 1.18478442e-05, 3.39620550e-05, 4.30250355e-05]),
+ &#39;param_max_depth&#39;: masked_array(data=[3, 3, 3, 3, 5, 5, 5, 5, 7, 7, 7, 7],
+              mask=[False, False, False, False, False, False, False, False,
+                    False, False, False, False],
+        fill_value=&#39;?&#39;,
+             dtype=object),
+ &#39;param_n_estimators&#39;: masked_array(data=[5, 10, 20, 30, 5, 10, 20, 30, 5, 10, 20, 30],
+              mask=[False, False, False, False, False, False, False, False,
+                    False, False, False, False],
+        fill_value=&#39;?&#39;,
+             dtype=object),
+ &#39;params&#39;: [{&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 5},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 5},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 5},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 30}],
+ &#39;split0_test_score&#39;: array([0.93023256, 0.97674419, 0.94186047, 0.94186047, 0.94186047,
+        0.96511628, 0.95348837, 0.95348837, 0.93023256, 0.95348837,
+        0.97674419, 0.94186047]),
+ &#39;split1_test_score&#39;: array([0.92941176, 0.94117647, 0.94117647, 0.92941176, 0.88235294,
+        0.94117647, 0.94117647, 0.94117647, 0.91764706, 0.91764706,
+        0.92941176, 0.94117647]),
+ &#39;split2_test_score&#39;: array([0.96470588, 0.97647059, 0.98823529, 0.97647059, 0.97647059,
+        0.98823529, 0.98823529, 0.97647059, 0.96470588, 0.98823529,
+        0.98823529, 0.97647059]),
+ &#39;split3_test_score&#39;: array([0.90588235, 0.94117647, 0.92941176, 0.91764706, 0.94117647,
+        0.95294118, 0.92941176, 0.90588235, 0.90588235, 0.90588235,
+        0.92941176, 0.90588235]),
+ &#39;split4_test_score&#39;: array([0.92941176, 0.97647059, 0.96470588, 0.94117647, 0.95294118,
+        0.97647059, 0.96470588, 0.94117647, 0.94117647, 0.94117647,
+        0.96470588, 0.96470588]),
+ &#39;mean_test_score&#39;: array([0.93192886, 0.96240766, 0.95307798, 0.94131327, 0.93896033,
+        0.96478796, 0.95540356, 0.94363885, 0.93192886, 0.94128591,
+        0.95770178, 0.94601915]),
+ &#39;std_test_score&#39;: array([0.01880586, 0.01733548, 0.02097052, 0.01968802, 0.031049  ,
+        0.01663862, 0.02022922, 0.02285877, 0.02022434, 0.028863  ,
+        0.02426774, 0.02419997]),
+ &#39;rank_test_score&#39;: array([11,  2,  5,  8, 10,  1,  4,  7, 11,  9,  3,  6], dtype=int32)}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gs-on-iris-data">
+<h3>GS on Iris Data<a class="headerlink" href="#gs-on-iris-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">10</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instantiate the GridSearchCV class with the model rfc,</span>
+<span class="c1">#the parameter grid to search (param_grid), and the cross-validation strategy</span>
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fit</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_iris_train</span><span class="p">,</span> <span class="n">y_iris_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-5 {color: black;background-color: white;}#sk-container-id-5 pre{padding: 0;}#sk-container-id-5 div.sk-toggleable {background-color: white;}#sk-container-id-5 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-5 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-5 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-5 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-5 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-5 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-5 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-5 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-5 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-5 div.sk-item {position: relative;z-index: 1;}#sk-container-id-5 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-5 div.sk-item::before, #sk-container-id-5 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-5 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-5 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-5 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-5 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-5 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-5 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-5 div.sk-label-container {text-align: center;}#sk-container-id-5 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-5 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=5, estimator=RandomForestClassifier(),
+             param_grid={&#x27;max_depth&#x27;: range(1, 20),
+                         &#x27;n_estimators&#x27;: range(10, 101, 10)})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">GridSearchCV</label><div class="sk-toggleable__content"><pre>GridSearchCV(cv=5, estimator=RandomForestClassifier(),
+             param_grid={&#x27;max_depth&#x27;: range(1, 20),
+                         &#x27;n_estimators&#x27;: range(10, 101, 10)})</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">estimator: RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier()</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier()</pre></div></div></div></div></div></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># best_params</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 60}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># best scores</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9549407114624506
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># training score</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_iris_train</span><span class="p">,</span> <span class="n">y_iris_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9375
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test score</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_iris_test</span><span class="p">,</span> <span class="n">y_iris_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># best estimator</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-6 {color: black;background-color: white;}#sk-container-id-6 pre{padding: 0;}#sk-container-id-6 div.sk-toggleable {background-color: white;}#sk-container-id-6 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-6 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-6 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-6 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-6 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-6 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-6 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-6 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-6 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-6 div.sk-item {position: relative;z-index: 1;}#sk-container-id-6 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-6 div.sk-item::before, #sk-container-id-6 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-6 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-6 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-6 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-6 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-6 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-6 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-6 div.sk-label-container {text-align: center;}#sk-container-id-6 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-6 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(max_depth=2, n_estimators=60)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" checked><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier(max_depth=2, n_estimators=60)</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># details: cv_rsults</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">cv_results_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;mean_fit_time&#39;: array([0.0041822 , 0.00751743, 0.01103601, 0.0139431 , 0.01730967,
+        0.02133622, 0.02409539, 0.02720108, 0.03092613, 0.03500657,
+        0.00365338, 0.00703359, 0.01056266, 0.01396976, 0.01754055,
+        0.02092071, 0.0244844 , 0.02766266, 0.03133736, 0.03718853,
+        0.00379648, 0.00728221, 0.01060538, 0.01405258, 0.017664  ,
+        0.02087026, 0.02440534, 0.02786922, 0.03124137, 0.0349174 ,
+        0.00364432, 0.0071012 , 0.01087813, 0.01410832, 0.01821699,
+        0.02260318, 0.02493315, 0.02800155, 0.03139634, 0.03496509,
+        0.00364027, 0.00711856, 0.01057458, 0.01401534, 0.01749439,
+        0.02138457, 0.02572818, 0.02930994, 0.03224921, 0.03566051,
+        0.00365982, 0.00717516, 0.01082225, 0.01427007, 0.01787853,
+        0.02125826, 0.02502799, 0.02838769, 0.03204255, 0.03553815,
+        0.00365329, 0.00715737, 0.01076555, 0.01434889, 0.01778941,
+        0.02101903, 0.02455745, 0.02805772, 0.03158693, 0.03517213,
+        0.00370579, 0.00756559, 0.01075635, 0.01543064, 0.01965098,
+        0.02192373, 0.02498579, 0.02858877, 0.03210626, 0.03546014,
+        0.00366445, 0.00717802, 0.01078687, 0.01438127, 0.0176846 ,
+        0.02179055, 0.02746739, 0.02918005, 0.03285952, 0.03613877,
+        0.00365982, 0.00721745, 0.01072459, 0.01428566, 0.0177619 ,
+        0.02152677, 0.0251318 , 0.02858386, 0.03208075, 0.03561788,
+        0.00374098, 0.00731359, 0.01084623, 0.01439404, 0.01798191,
+        0.02154789, 0.02510929, 0.02863417, 0.03208942, 0.03567457,
+        0.00375357, 0.00731449, 0.01082134, 0.01437912, 0.01796689,
+        0.02146063, 0.02502513, 0.0285974 , 0.03211918, 0.03570156,
+        0.00374632, 0.00732417, 0.01084394, 0.01441035, 0.01795325,
+        0.02150159, 0.02517142, 0.02827187, 0.03195524, 0.03555403,
+        0.00370951, 0.00713415, 0.01086903, 0.01443181, 0.01797724,
+        0.02151203, 0.02507677, 0.0286376 , 0.03212733, 0.03574634,
+        0.00373778, 0.0073091 , 0.01084628, 0.01441917, 0.01799092,
+        0.0215086 , 0.0250721 , 0.02861681, 0.03210449, 0.03571215,
+        0.00376377, 0.00733013, 0.01083665, 0.01440544, 0.01795077,
+        0.02151613, 0.02505827, 0.0286478 , 0.03215427, 0.03590875,
+        0.00378089, 0.00737219, 0.01063914, 0.01463556, 0.018503  ,
+        0.02224207, 0.02579265, 0.02943435, 0.03288102, 0.03572493,
+        0.00377841, 0.00737591, 0.01097846, 0.01457667, 0.01805415,
+        0.02154784, 0.02508235, 0.02875762, 0.03213482, 0.03586373,
+        0.00376105, 0.00737104, 0.01093106, 0.0145206 , 0.01796474,
+        0.02157207, 0.02519007, 0.0286612 , 0.03215709, 0.03638802]),
+ &#39;std_fit_time&#39;: array([1.92453958e-04, 2.05029476e-04, 1.95100276e-04, 6.46719526e-05,
+        3.32921714e-04, 6.25491160e-04, 1.22836861e-04, 6.02874933e-05,
+        3.77808182e-04, 4.15199652e-04, 5.06280267e-05, 5.10467485e-05,
+        1.00857541e-04, 7.53850140e-05, 1.48569833e-04, 4.62928582e-05,
+        1.31369546e-04, 1.30572137e-04, 2.02317157e-04, 9.62823965e-04,
+        1.92080756e-05, 8.16115398e-05, 7.09230797e-05, 4.92569322e-05,
+        2.91007096e-04, 4.05705205e-05, 1.47298510e-04, 1.98603621e-04,
+        9.23343661e-05, 4.29971165e-04, 2.18538168e-05, 3.44854488e-05,
+        1.81547969e-04, 9.08655213e-05, 1.01026105e-03, 5.04423639e-04,
+        4.79267042e-04, 1.90736115e-04, 1.03084033e-04, 8.36584125e-05,
+        2.10849390e-05, 1.83651032e-05, 3.04970821e-05, 5.22372006e-05,
+        8.62014762e-05, 4.26652338e-04, 3.05381102e-04, 2.64887458e-04,
+        1.29243631e-04, 1.46379921e-04, 1.76459387e-05, 5.53807716e-05,
+        9.84662843e-05, 1.82134006e-04, 2.14007842e-04, 2.22145561e-04,
+        1.05756096e-04, 1.75415915e-04, 2.47201940e-04, 2.25585577e-04,
+        1.88305403e-05, 2.46527117e-05, 1.29386316e-04, 1.85019491e-04,
+        3.15964528e-04, 1.08509049e-04, 7.56250203e-05, 9.20790455e-05,
+        1.31992057e-04, 2.89865092e-04, 2.66919795e-05, 1.97806951e-04,
+        7.20107156e-05, 8.26263166e-04, 3.27564965e-04, 5.37447800e-04,
+        1.66104155e-04, 1.35971100e-04, 1.25676456e-04, 1.11034335e-04,
+        1.59711266e-05, 4.06743493e-05, 1.38124062e-04, 2.08536901e-04,
+        2.28588522e-04, 2.24799840e-04, 9.15042327e-04, 2.36203730e-04,
+        1.41300247e-04, 8.13016542e-04, 2.28123601e-05, 7.30126916e-05,
+        1.33820880e-04, 1.93973148e-04, 2.14032511e-04, 6.83880577e-05,
+        7.83659202e-05, 8.27881318e-05, 7.66175975e-05, 1.07165096e-04,
+        1.29155110e-05, 3.99848927e-05, 2.83926799e-05, 4.23631642e-05,
+        9.21708589e-05, 2.04059563e-05, 9.10233301e-05, 1.28329504e-04,
+        8.70063061e-05, 7.99486857e-05, 1.02676228e-05, 4.42486898e-05,
+        1.42389995e-05, 7.41434402e-05, 5.05190010e-05, 6.12824986e-05,
+        8.82742656e-05, 1.26583373e-04, 7.69168932e-05, 1.19967851e-04,
+        1.97057823e-05, 4.45370501e-05, 2.96274395e-05, 3.03260935e-05,
+        4.41007609e-05, 2.57166904e-05, 2.16280142e-04, 2.09132721e-04,
+        1.04182317e-04, 1.70451483e-04, 3.16906277e-05, 4.31366091e-05,
+        2.98398735e-05, 3.25605417e-05, 5.64710900e-05, 9.68737845e-05,
+        1.22329374e-04, 8.90434377e-05, 7.99642408e-05, 1.09941009e-04,
+        1.82968824e-05, 4.02735772e-05, 3.27627729e-05, 2.50467086e-05,
+        6.52411172e-05, 7.82955288e-05, 1.06730281e-04, 8.37657272e-05,
+        7.95423839e-05, 1.37515620e-04, 1.99296257e-05, 4.71975818e-05,
+        3.35641879e-05, 3.69803741e-05, 7.18826283e-05, 1.71816279e-05,
+        1.27232896e-04, 7.32888940e-05, 1.05957723e-04, 2.38721483e-04,
+        5.59328970e-05, 8.09308557e-05, 3.34885693e-05, 1.98546484e-04,
+        1.44067287e-04, 1.36490670e-04, 1.19726433e-04, 1.73775097e-04,
+        3.16848371e-04, 3.77094613e-04, 1.08896495e-05, 6.45908274e-05,
+        1.02122000e-04, 1.48213692e-04, 9.02596944e-05, 6.98600449e-05,
+        5.69490114e-05, 1.16531275e-04, 1.65923600e-04, 1.06556900e-04,
+        1.78110009e-05, 4.16329906e-05, 3.47510598e-05, 1.10043892e-04,
+        9.33995586e-05, 5.55979449e-05, 3.42992783e-05, 6.63765888e-05,
+        1.02325032e-04, 4.62596156e-04]),
+ &#39;mean_score_time&#39;: array([0.00037689, 0.0005496 , 0.00067959, 0.00077114, 0.00096178,
+        0.00112233, 0.0012238 , 0.00136714, 0.00152721, 0.00170317,
+        0.00030828, 0.00046139, 0.00061264, 0.00077863, 0.00091786,
+        0.00107832, 0.00122609, 0.00138803, 0.0015141 , 0.00184684,
+        0.00033979, 0.00050659, 0.00062051, 0.00077577, 0.00094838,
+        0.00108042, 0.00123653, 0.00138202, 0.00153317, 0.00170636,
+        0.00030951, 0.00046878, 0.00065489, 0.00077214, 0.00095062,
+        0.00121784, 0.00125728, 0.00138321, 0.0015336 , 0.00168958,
+        0.00030637, 0.00046477, 0.00061836, 0.00077615, 0.00093122,
+        0.00111017, 0.00131359, 0.00148993, 0.00158362, 0.00171366,
+        0.00031395, 0.00046997, 0.00063457, 0.00078926, 0.00094881,
+        0.00109992, 0.00126224, 0.00141106, 0.0015882 , 0.00171113,
+        0.00030966, 0.0004724 , 0.00063405, 0.00079598, 0.00094581,
+        0.00108266, 0.00123363, 0.0013876 , 0.00154347, 0.0017118 ,
+        0.00031247, 0.00049181, 0.00064626, 0.00091443, 0.00114098,
+        0.0011549 , 0.00125718, 0.00141225, 0.0015574 , 0.00171351,
+        0.00030937, 0.00048523, 0.00062871, 0.00078597, 0.00094442,
+        0.00112519, 0.00141277, 0.00147915, 0.00161867, 0.00182004,
+        0.00031214, 0.00047383, 0.00063019, 0.0007853 , 0.00094032,
+        0.00110798, 0.00126266, 0.00141878, 0.00156779, 0.00173845,
+        0.00031457, 0.00047622, 0.00063343, 0.00079193, 0.00094376,
+        0.00110741, 0.00127029, 0.00141449, 0.00157976, 0.0017282 ,
+        0.00031776, 0.00047812, 0.00064268, 0.00079041, 0.00094399,
+        0.00110073, 0.0012548 , 0.00141459, 0.00157089, 0.00172625,
+        0.00031486, 0.00047483, 0.00064292, 0.00079079, 0.00094461,
+        0.00110178, 0.00125904, 0.00140066, 0.00155487, 0.00169773,
+        0.0003109 , 0.0004652 , 0.00063772, 0.00078912, 0.00095334,
+        0.00111017, 0.00126462, 0.00142455, 0.00156889, 0.00173316,
+        0.00031424, 0.0004745 , 0.00063181, 0.00079694, 0.00095096,
+        0.00110583, 0.00126143, 0.00141521, 0.00157561, 0.00172763,
+        0.00031581, 0.00047383, 0.00063152, 0.00079327, 0.00095081,
+        0.00110712, 0.00126357, 0.00142374, 0.0015717 , 0.00173779,
+        0.00032053, 0.00048223, 0.00062647, 0.00081639, 0.00099158,
+        0.00116639, 0.00132523, 0.00149217, 0.00161858, 0.00174689,
+        0.00032439, 0.00049109, 0.00064354, 0.00081143, 0.00096946,
+        0.00111012, 0.00127044, 0.00144558, 0.00158286, 0.0017529 ,
+        0.00031376, 0.00048232, 0.00063734, 0.0007967 , 0.0009551 ,
+        0.00111213, 0.00128551, 0.00142875, 0.00158   , 0.00180297]),
+ &#39;std_score_time&#39;: array([2.32466795e-05, 5.38094201e-05, 4.83025921e-05, 5.47968681e-06,
+        9.49310811e-05, 7.51713174e-05, 2.61574629e-05, 1.19508368e-05,
+        2.83197117e-05, 3.43619324e-05, 4.81345796e-06, 3.23898462e-06,
+        8.34887262e-06, 2.23205635e-05, 1.29401341e-05, 1.61572526e-05,
+        1.46650491e-05, 3.38888004e-05, 7.19471271e-06, 1.31179922e-04,
+        1.59583085e-05, 3.93196694e-05, 6.48323204e-06, 3.73762473e-06,
+        3.71371359e-05, 6.88794535e-06, 9.95276923e-06, 4.30370301e-06,
+        1.06928540e-05, 5.61593938e-05, 2.90205461e-06, 2.50237308e-06,
+        3.17705259e-05, 2.31940966e-06, 3.47474610e-05, 5.79613170e-05,
+        2.82320620e-05, 4.91535622e-06, 8.90371303e-06, 1.20297236e-05,
+        1.87730977e-06, 8.47644274e-07, 6.06089853e-06, 7.38189509e-06,
+        6.82293825e-06, 2.91474294e-05, 2.58098876e-05, 1.63926601e-05,
+        1.94783164e-05, 1.15573760e-05, 4.63391518e-06, 2.93710014e-06,
+        9.44041238e-06, 1.41232373e-05, 1.67996979e-05, 1.43650706e-05,
+        1.62162496e-05, 1.63615608e-05, 4.24943514e-05, 7.12388969e-06,
+        2.24366958e-06, 7.05428966e-06, 7.61089466e-06, 8.97746473e-06,
+        1.28984231e-05, 1.04099132e-05, 6.95986263e-06, 8.39152115e-06,
+        9.47623129e-06, 3.02550828e-05, 8.76602574e-06, 1.27507362e-05,
+        1.19605360e-05, 9.77473840e-05, 9.33731414e-05, 4.44848436e-05,
+        6.41518786e-06, 1.19176860e-05, 6.54049565e-06, 1.09983087e-05,
+        2.08176422e-06, 1.84920622e-05, 7.91463503e-06, 1.13599385e-05,
+        9.14409074e-06, 8.89732650e-06, 2.86894338e-05, 7.30146535e-05,
+        5.01927228e-05, 1.38116391e-04, 3.14278737e-06, 6.90443081e-06,
+        8.55972506e-06, 9.61557234e-06, 7.22058057e-06, 2.65234642e-06,
+        4.20590917e-06, 2.97937381e-06, 9.58003707e-06, 2.20619521e-05,
+        2.57050170e-06, 4.54773675e-06, 2.11857413e-06, 5.15469570e-06,
+        3.26763948e-06, 8.70851398e-06, 9.96464169e-06, 5.32992186e-06,
+        2.07037401e-05, 4.87587854e-06, 1.63381974e-06, 5.61089646e-06,
+        2.23007925e-05, 3.10274095e-06, 7.12165515e-06, 1.18821467e-05,
+        5.69615866e-06, 9.47263149e-06, 7.93815724e-06, 9.48006956e-06,
+        2.16212922e-06, 3.01050074e-06, 8.41262921e-06, 2.94483140e-06,
+        2.92001932e-06, 1.64076333e-06, 5.51236954e-06, 1.00412441e-05,
+        1.82757444e-05, 3.86914497e-06, 4.16516644e-06, 5.47304376e-06,
+        7.20229341e-06, 4.31372943e-06, 1.00629588e-05, 1.09148848e-05,
+        5.58205056e-06, 7.21900592e-06, 5.56614202e-06, 1.18411254e-05,
+        2.06751665e-06, 1.63381974e-06, 2.25176219e-06, 4.28251803e-06,
+        7.55843302e-06, 7.71445305e-06, 7.15795949e-06, 5.12328187e-06,
+        7.71916740e-06, 1.07244907e-05, 1.17383324e-06, 3.30912620e-06,
+        2.22330918e-06, 8.40830367e-06, 5.90007709e-06, 2.84348517e-06,
+        5.21782751e-06, 5.87613532e-06, 2.57034248e-05, 1.50882610e-05,
+        1.17872371e-05, 1.90702674e-05, 4.78645710e-06, 1.99654172e-05,
+        1.34329352e-05, 3.23699738e-05, 3.61254424e-05, 4.76721750e-05,
+        4.79659786e-05, 1.39028904e-05, 4.17770312e-06, 9.04408127e-06,
+        5.86994095e-06, 1.36191905e-05, 2.34133357e-05, 8.50108517e-06,
+        5.89352209e-06, 2.15909843e-05, 1.41918146e-05, 1.89499430e-05,
+        2.12179141e-06, 7.86853556e-06, 2.16633161e-06, 4.62704066e-06,
+        4.49594481e-06, 4.84312589e-06, 1.15463536e-05, 1.07522286e-05,
+        1.33369572e-05, 5.93031698e-05]),
+ &#39;param_max_depth&#39;: masked_array(data=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4,
+                    4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6,
+                    6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8,
+                    8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+                    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11,
+                    11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12,
+                    12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14,
+                    14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15,
+                    15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+                    17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18,
+                    18, 18, 18, 18, 18, 18, 19, 19, 19, 19, 19, 19, 19, 19,
+                    19, 19],
+              mask=[False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False],
+        fill_value=&#39;?&#39;,
+             dtype=object),
+ &#39;param_n_estimators&#39;: masked_array(data=[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10, 20, 30,
+                    40, 50, 60, 70, 80, 90, 100, 10, 20, 30, 40, 50, 60,
+                    70, 80, 90, 100, 10, 20, 30, 40, 50, 60, 70, 80, 90,
+                    100, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10, 20,
+                    30, 40, 50, 60, 70, 80, 90, 100, 10, 20, 30, 40, 50,
+                    60, 70, 80, 90, 100, 10, 20, 30, 40, 50, 60, 70, 80,
+                    90, 100, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10,
+                    20, 30, 40, 50, 60, 70, 80, 90, 100, 10, 20, 30, 40,
+                    50, 60, 70, 80, 90, 100, 10, 20, 30, 40, 50, 60, 70,
+                    80, 90, 100, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10, 20, 30,
+                    40, 50, 60, 70, 80, 90, 100, 10, 20, 30, 40, 50, 60,
+                    70, 80, 90, 100, 10, 20, 30, 40, 50, 60, 70, 80, 90,
+                    100, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10, 20,
+                    30, 40, 50, 60, 70, 80, 90, 100],
+              mask=[False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False, False, False,
+                    False, False, False, False, False, False],
+        fill_value=&#39;?&#39;,
+             dtype=object),
+ &#39;params&#39;: [{&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 1, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 2, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 5, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 8, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 9, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 10, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 11, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 12, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 13, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 14, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 15, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 16, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 17, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 18, &#39;n_estimators&#39;: 100},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 10},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 20},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 30},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 40},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 50},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 60},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 70},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 80},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 90},
+  {&#39;max_depth&#39;: 19, &#39;n_estimators&#39;: 100}],
+ &#39;split0_test_score&#39;: array([0.73913043, 0.91304348, 0.95652174, 0.95652174, 1.        ,
+        1.        , 0.95652174, 0.95652174, 1.        , 1.        ,
+        0.95652174, 1.        , 0.95652174, 1.        , 0.95652174,
+        1.        , 1.        , 1.        , 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 0.95652174,
+        1.        , 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 1.        , 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174]),
+ &#39;split1_test_score&#39;: array([0.95652174, 0.95652174, 0.95652174, 1.        , 1.        ,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 1.        ,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 1.        , 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 1.        ,
+        0.95652174, 1.        , 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 1.        ,
+        0.95652174, 0.95652174, 1.        , 1.        , 1.        ,
+        0.95652174, 0.91304348, 0.95652174, 0.91304348, 0.95652174,
+        1.        , 0.95652174, 0.95652174, 0.95652174, 1.        ,
+        1.        , 0.95652174, 0.95652174, 0.91304348, 1.        ,
+        1.        , 0.91304348, 1.        , 0.91304348, 0.91304348,
+        0.95652174, 0.91304348, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 1.        , 0.95652174, 0.95652174, 1.        ,
+        0.95652174, 0.91304348, 0.95652174, 0.95652174, 1.        ,
+        0.91304348, 0.91304348, 1.        , 1.        , 0.91304348,
+        0.95652174, 0.95652174, 1.        , 0.95652174, 0.95652174,
+        0.95652174, 1.        , 1.        , 0.95652174, 0.91304348,
+        0.91304348, 0.95652174, 1.        , 0.95652174, 0.91304348,
+        0.95652174, 1.        , 0.95652174, 0.95652174, 0.95652174,
+        0.91304348, 0.95652174, 0.95652174, 1.        , 0.95652174,
+        0.95652174, 1.        , 1.        , 0.91304348, 0.95652174,
+        1.        , 1.        , 1.        , 0.95652174, 0.95652174,
+        1.        , 0.95652174, 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.91304348, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.95652174, 0.95652174, 1.        ,
+        0.95652174, 1.        , 0.95652174, 1.        , 1.        ,
+        0.95652174, 1.        , 1.        , 1.        , 1.        ,
+        0.91304348, 1.        , 1.        , 0.95652174, 1.        ,
+        0.95652174, 1.        , 0.95652174, 1.        , 1.        ,
+        1.        , 0.91304348, 0.91304348, 0.95652174, 0.95652174,
+        0.91304348, 1.        , 0.95652174, 0.95652174, 0.95652174,
+        0.95652174, 0.95652174, 0.91304348, 0.95652174, 0.95652174,
+        0.91304348, 0.95652174, 0.95652174, 1.        , 1.        ,
+        0.95652174, 0.91304348, 1.        , 1.        , 0.95652174,
+        0.95652174, 1.        , 0.95652174, 1.        , 0.91304348,
+        0.95652174, 0.91304348, 0.91304348, 0.95652174, 0.95652174,
+        0.91304348, 0.91304348, 1.        , 0.91304348, 0.95652174]),
+ &#39;split2_test_score&#39;: array([0.86363636, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.77272727, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.86363636, 0.86363636, 0.81818182, 0.86363636, 0.81818182,
+        0.86363636, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.86363636, 0.86363636, 0.86363636, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.86363636, 0.81818182, 0.81818182, 0.86363636,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.86363636,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.86363636, 0.86363636, 0.86363636, 0.81818182, 0.81818182,
+        0.86363636, 0.77272727, 0.81818182, 0.81818182, 0.77272727,
+        0.81818182, 0.86363636, 0.77272727, 0.81818182, 0.81818182,
+        0.86363636, 0.86363636, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.77272727, 0.81818182, 0.81818182, 0.81818182,
+        0.77272727, 0.86363636, 0.81818182, 0.86363636, 0.77272727,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.86363636,
+        0.81818182, 0.81818182, 0.81818182, 0.86363636, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.77272727,
+        0.86363636, 0.81818182, 0.81818182, 0.81818182, 0.86363636,
+        0.81818182, 0.81818182, 0.77272727, 0.81818182, 0.77272727,
+        0.86363636, 0.77272727, 0.77272727, 0.77272727, 0.77272727,
+        0.86363636, 0.86363636, 0.81818182, 0.86363636, 0.81818182,
+        0.86363636, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.86363636, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.86363636, 0.81818182, 0.86363636, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.86363636, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.86363636, 0.81818182, 0.81818182, 0.77272727, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.77272727, 0.81818182, 0.81818182,
+        0.86363636, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.86363636,
+        0.81818182, 0.81818182, 0.86363636, 0.86363636, 0.81818182,
+        0.77272727, 0.77272727, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.81818182,
+        0.81818182, 0.81818182, 0.81818182, 0.81818182, 0.86363636]),
+ &#39;split3_test_score&#39;: array([0.86363636, 0.95454545, 1.        , 0.95454545, 0.95454545,
+        1.        , 1.        , 1.        , 0.90909091, 1.        ,
+        1.        , 0.95454545, 1.        , 1.        , 1.        ,
+        1.        , 0.95454545, 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        0.95454545, 1.        , 1.        , 1.        , 0.95454545,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 0.95454545, 1.        ,
+        1.        , 0.95454545, 1.        , 1.        , 1.        ,
+        0.95454545, 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 0.95454545, 1.        , 1.        ,
+        1.        , 1.        , 1.        , 0.95454545, 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        0.95454545, 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 0.95454545, 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 0.95454545, 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 0.95454545, 1.        , 1.        ,
+        0.95454545, 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        0.95454545, 1.        , 0.95454545, 0.95454545, 0.95454545,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 0.95454545, 1.        , 1.        ,
+        0.95454545, 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        0.95454545, 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        0.95454545, 1.        , 1.        , 0.95454545, 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ,
+        1.        , 1.        , 1.        , 1.        , 1.        ]),
+ &#39;split4_test_score&#39;: array([0.90909091, 0.90909091, 0.90909091, 0.90909091, 0.90909091,
+        0.90909091, 0.90909091, 0.90909091, 0.90909091, 0.90909091,
+        0.90909091, 0.95454545, 0.95454545, 0.90909091, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.90909091, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.90909091, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545,
+        0.95454545, 0.95454545, 0.95454545, 0.95454545, 0.95454545]),
+ &#39;mean_test_score&#39;: array([0.86640316, 0.91027668, 0.92806324, 0.92766798, 0.93636364,
+        0.93675889, 0.92806324, 0.92806324, 0.91857708, 0.94545455,
+        0.91897233, 0.93675889, 0.93715415, 0.93675889, 0.93715415,
+        0.95494071, 0.95454545, 0.9458498 , 0.94624506, 0.93715415,
+        0.94624506, 0.93715415, 0.9458498 , 0.93715415, 0.9458498 ,
+        0.93715415, 0.95494071, 0.95494071, 0.94624506, 0.93715415,
+        0.93675889, 0.93715415, 0.9458498 , 0.93715415, 0.93675889,
+        0.93715415, 0.94624506, 0.9458498 , 0.9458498 , 0.95494071,
+        0.93715415, 0.9284585 , 0.9458498 , 0.91936759, 0.94624506,
+        0.9458498 , 0.92806324, 0.93715415, 0.93715415, 0.9458498 ,
+        0.9458498 , 0.95494071, 0.94624506, 0.9284585 , 0.9458498 ,
+        0.95494071, 0.91936759, 0.9458498 , 0.9284585 , 0.91936759,
+        0.93715415, 0.93754941, 0.91897233, 0.93715415, 0.93715415,
+        0.94624506, 0.95494071, 0.93715415, 0.92806324, 0.9458498 ,
+        0.93715415, 0.91936759, 0.9458498 , 0.93715415, 0.9458498 ,
+        0.91936759, 0.93754941, 0.9458498 , 0.95494071, 0.91936759,
+        0.92806324, 0.93715415, 0.9458498 , 0.93715415, 0.94624506,
+        0.93715415, 0.9458498 , 0.9458498 , 0.94624506, 0.9284585 ,
+        0.9284585 , 0.92806324, 0.9458498 , 0.93715415, 0.91936759,
+        0.94624506, 0.9458498 , 0.93715415, 0.93715415, 0.94624506,
+        0.9284585 , 0.92806324, 0.92806324, 0.9458498 , 0.92806324,
+        0.94624506, 0.93675889, 0.93675889, 0.91936759, 0.92806324,
+        0.9458498 , 0.95494071, 0.95454545, 0.94624506, 0.93715415,
+        0.95494071, 0.93715415, 0.92806324, 0.93715415, 0.93715415,
+        0.92806324, 0.94624506, 0.9284585 , 0.93715415, 0.93715415,
+        0.93715415, 0.93715415, 0.93715415, 0.93715415, 0.9458498 ,
+        0.93715415, 0.9458498 , 0.93715415, 0.93675889, 0.93675889,
+        0.93715415, 0.9458498 , 0.95494071, 0.9458498 , 0.9458498 ,
+        0.9284585 , 0.9458498 , 0.9458498 , 0.93715415, 0.9458498 ,
+        0.94624506, 0.9458498 , 0.92806324, 0.93675889, 0.9458498 ,
+        0.93675889, 0.9284585 , 0.9284585 , 0.93715415, 0.93715415,
+        0.9284585 , 0.9458498 , 0.92806324, 0.93715415, 0.93715415,
+        0.93715415, 0.92806324, 0.9284585 , 0.93715415, 0.93715415,
+        0.9284585 , 0.93715415, 0.93715415, 0.9458498 , 0.95494071,
+        0.92806324, 0.9284585 , 0.95494071, 0.9458498 , 0.93715415,
+        0.92806324, 0.93675889, 0.93715415, 0.9458498 , 0.9284585 ,
+        0.93715415, 0.9284585 , 0.93715415, 0.93715415, 0.93715415,
+        0.9284585 , 0.9284585 , 0.9458498 , 0.9284585 , 0.94624506]),
+ &#39;std_test_score&#39;: array([0.07232878, 0.05017739, 0.06201378, 0.06183718, 0.06803013,
+        0.06814027, 0.06201378, 0.06201378, 0.06054531, 0.07272727,
+        0.07857564, 0.06177905, 0.06189779, 0.06814027, 0.06189779,
+        0.04979923, 0.04979296, 0.0668627 , 0.04470773, 0.06189779,
+        0.04470773, 0.06189779, 0.0668627 , 0.06189779, 0.0668627 ,
+        0.06189779, 0.04979923, 0.04979923, 0.04470773, 0.06189779,
+        0.06177905, 0.06189779, 0.0668627 , 0.06189779, 0.06177905,
+        0.06189779, 0.04470773, 0.0668627 , 0.0668627 , 0.04979923,
+        0.06189779, 0.06161953, 0.0668627 , 0.05316757, 0.04470773,
+        0.0668627 , 0.05494782, 0.06189779, 0.06189779, 0.0668627 ,
+        0.04462379, 0.04979923, 0.04470773, 0.06161953, 0.0668627 ,
+        0.04979923, 0.07831076, 0.0668627 , 0.06161953, 0.07831076,
+        0.06189779, 0.04607075, 0.07312787, 0.06189779, 0.06189779,
+        0.04470773, 0.04979923, 0.06189779, 0.05494782, 0.0668627 ,
+        0.06189779, 0.07831076, 0.0668627 , 0.06189779, 0.0668627 ,
+        0.07831076, 0.04607075, 0.0668627 , 0.04979923, 0.07831076,
+        0.05494782, 0.06189779, 0.0668627 , 0.06189779, 0.04470773,
+        0.06189779, 0.0668627 , 0.0668627 , 0.04470773, 0.06161953,
+        0.06161953, 0.05494782, 0.0668627 , 0.06189779, 0.07831076,
+        0.04470773, 0.0668627 , 0.06189779, 0.06189779, 0.04470773,
+        0.06161953, 0.05494782, 0.07953017, 0.0668627 , 0.07953017,
+        0.04470773, 0.08439453, 0.08439453, 0.07831076, 0.07953017,
+        0.05308228, 0.04979923, 0.07041788, 0.04470773, 0.06189779,
+        0.04979923, 0.06189779, 0.05494782, 0.06189779, 0.06189779,
+        0.05494782, 0.04470773, 0.06161953, 0.06189779, 0.06189779,
+        0.06189779, 0.06189779, 0.06189779, 0.06189779, 0.0668627 ,
+        0.03676952, 0.0668627 , 0.03676952, 0.06177905, 0.06177905,
+        0.06189779, 0.0668627 , 0.04979923, 0.0668627 , 0.0668627 ,
+        0.06161953, 0.0668627 , 0.0668627 , 0.06189779, 0.0668627 ,
+        0.04470773, 0.0668627 , 0.05494782, 0.08439453, 0.0668627 ,
+        0.06177905, 0.06161953, 0.06161953, 0.06189779, 0.06189779,
+        0.06161953, 0.0668627 , 0.07953017, 0.06189779, 0.06189779,
+        0.03676952, 0.06201378, 0.06161953, 0.06189779, 0.06189779,
+        0.06161953, 0.06189779, 0.06189779, 0.0668627 , 0.04979923,
+        0.05494782, 0.06161953, 0.04979923, 0.04462379, 0.06189779,
+        0.07953017, 0.08439453, 0.06189779, 0.0668627 , 0.06161953,
+        0.06189779, 0.06161953, 0.06773094, 0.06189779, 0.06189779,
+        0.06161953, 0.06161953, 0.0668627 , 0.06161953, 0.04470773]),
+ &#39;rank_test_score&#39;: array([190, 189, 173, 177, 139, 127, 173, 173, 188,  70, 186, 127,  73,
+        127,  73,   1,  14,  32,  16,  73,  16,  73,  32,  73,  32,  73,
+          1,   1,  16,  73, 127,  73,  32,  73, 127,  73,  16,  32,  32,
+          1,  73, 140,  32, 178,  16,  32, 159,  73,  73,  32,  32,   1,
+         16, 140,  32,   1, 178,  32, 140, 178,  73,  71, 186,  73,  73,
+         16,   1,  73, 159,  32,  73, 178,  32,  73,  32, 178,  71,  32,
+          1, 178, 159,  73,  32,  73,  16,  73,  32,  32,  16, 140, 140,
+        159,  32,  73, 178,  16,  32,  73,  73,  16, 140, 159, 159,  32,
+        159,  16, 127, 127, 178, 159,  32,   1,  14,  16,  73,   1,  73,
+        159,  73,  73, 159,  16, 140,  73,  73,  73,  73,  73,  73,  32,
+         73,  32,  73, 127, 127,  73,  32,   1,  32,  32, 140,  32,  32,
+         73,  32,  16,  32, 159, 127,  32, 127, 140, 140,  73,  73, 140,
+         32, 159,  73,  73,  73, 173, 140,  73,  73, 140,  73,  73,  32,
+          1, 159, 140,   1,  32,  73, 159, 127,  73,  32, 140,  73, 140,
+         73,  73,  73, 140, 140,  32, 140,  16], dtype=int32)}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="manual-grid-search">
+<h3>Manual Grid search<a class="headerlink" href="#manual-grid-search" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train_val</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train_val</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_train_val</span><span class="p">,</span> <span class="n">y_train_val</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">neighbor_list</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">best_val_score</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">best_param</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">neighbor_list</span><span class="p">:</span>
+  <span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">nn</span><span class="p">)</span>
+  <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+  <span class="n">val_score</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">val_score</span> <span class="o">&gt;</span> <span class="n">best_val_score</span> <span class="p">:</span>
+    <span class="n">best_val_score</span> <span class="o">=</span> <span class="n">val_score</span>
+    <span class="n">best_param</span> <span class="o">=</span> <span class="n">nn</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Best Parameter: n_neighbors=</span><span class="si">{</span><span class="n">best_param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Best Validation Score = </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">best_val_score</span><span class="p">)</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">)</span>
+
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">best_param</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_val</span><span class="p">,</span> <span class="n">y_train_val</span><span class="p">)</span>
+<span class="n">test_score</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test score of best model is: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">test_score</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best Parameter: n_neighbors=5
+Best Validation Score = 1 
+Test score of best model is: 0.94
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -407,12 +1786,49 @@ document.write(`
                 <footer class="prev-next-footer">
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="neural_networks.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Neural Networks</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation">Cross Validation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cv-on-breast-cancer-dataset">CV on Breast Cancer Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cv-on-iris-data">CV on Iris Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-set">Validation Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-set-for-housing-data">Validation Set for Housing Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-search">Grid Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gs-on-breast-cancer-data">GS on Breast Cancer Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gs-on-iris-data">GS on Iris Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-grid-search">Manual Grid search</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
