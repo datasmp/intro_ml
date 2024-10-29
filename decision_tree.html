@@ -192,6 +192,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="neural_networks.html">Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">Model Evaluation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nlp.html">Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genetic_algorithm.html">Genetic Algorithm</a></li>
 </ul>
 
     </div>
@@ -1478,14 +1479,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x1_values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">x2_values</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="p">[</span><span class="n">target_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;bright&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;mean concave points&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;worst area&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;worst area&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;worst area&#39;)
-</pre></div>
-</div>
 <img alt="_images/68b540c2ef83c89d9912f3230dc4c8e02492a2948fee1931483b46769f1e19d4.png" src="_images/68b540c2ef83c89d9912f3230dc4c8e02492a2948fee1931483b46769f1e19d4.png" />
 </div>
 </div>
@@ -2045,7 +2043,9 @@ Max Depth: 14 --- Training Score: 0.95 --- Test Score: 0.62
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Max Depth: 16 --- Training Score: 0.98 --- Test Score: 0.60
 Max Depth: 18 --- Training Score: 0.99 --- Test Score: 0.59
-Max Depth: 20 --- Training Score: 1.00 --- Test Score: 0.59
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Max Depth: 20 --- Training Score: 1.00 --- Test Score: 0.59
 </pre></div>
 </div>
 </div>

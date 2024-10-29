@@ -1,0 +1,915 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Genetic Algorithm &#8212; Introduction to Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genetic_algorithm';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Natural Language Processing" href="nlp.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro_ml.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo4.png" class="logo__image only-light" alt="Introduction to Machine Learning - Home"/>
+    <script>document.write(`<img src="_static/logo4.png" class="logo__image only-dark" alt="Introduction to Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro_ml.html">
+                    Introduction to Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="acknowledgement.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to ML</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="supervised.html">Supervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="knn.html">kNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_regression.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poly_regression.html">Polynomial Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_forest.html">Random Forest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xgboost.html">XGBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_regression.html">Logistic Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="unsupervised.html">Unsupervised Learning</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="minmax.html">Scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans.html">K-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pca.html">PCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isolation_forest.html">Isolation Forest</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="neural_networks.html">Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">Model Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlp.html">Natural Language Processing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Genetic Algorithm</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datasmp/datasmp.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datasmp/datasmp.github.io/issues/new?title=Issue%20on%20page%20%2Fgenetic_algorithm.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/genetic_algorithm.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Genetic Algorithm</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#genetic-algorithm-from-scratch">Genetic Algorithm from Scratch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem">Optimization Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-population">Initial Population</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitness-function">Fitness Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parent-selection">Parent Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crossover">Crossover</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">Mutation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-generation">Next Generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iteration">Iteration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geneticalgorithm-library">geneticalgorithm Library</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="genetic-algorithm">
+<h1>Genetic Algorithm<a class="headerlink" href="#genetic-algorithm" title="Permalink to this heading">#</a></h1>
+<p>A genetic algorithm is an optimization technique used to find the maximum or minimum of a function within a specified domain.
+In this section, we will first create a program that implements a genetic algorithm from scratch.
+Then, we will use the <em>geneticalgorithm</em> library to find the maximum or minimum of a function in a given domain.</p>
+<section id="genetic-algorithm-from-scratch">
+<h2>Genetic Algorithm from Scratch<a class="headerlink" href="#genetic-algorithm-from-scratch" title="Permalink to this heading">#</a></h2>
+<section id="optimization-problem">
+<h3>Optimization Problem<a class="headerlink" href="#optimization-problem" title="Permalink to this heading">#</a></h3>
+<p>The following question is from OpenStax Calculus-III, Example 4.40.
+Find the maximum value of the fiven function within the specified domain.
+<span class="math notranslate nohighlight">\( f(x,y) = x^2-2xy+4y^2-4x-2y+24, \,\,\, 0\le x \le 4, \,\,\, 0\le y \le 2\)</span>.</p>
+</section>
+<section id="initial-population">
+<h3>Initial Population<a class="headerlink" href="#initial-population" title="Permalink to this heading">#</a></h3>
+<p>The population is a set of randomly chosen pairs of possible <span class="math notranslate nohighlight">\((x,y)\)</span> values within the given domain.</p>
+<ul class="simple">
+<li><p>This population will be updated throughout the genetic algorithm process.</p></li>
+</ul>
+<p><strong>Coding</strong>
+The following code generates an initial population of size <span class="math notranslate nohighlight">\(N=100\)</span> containing 100 pairs of <span class="math notranslate nohighlight">\((x,y)\)</span> values.
+In each pair, <span class="math notranslate nohighlight">\(x\)</span> is randomly selected between 0 and 4, and <span class="math notranslate nohighlight">\(y\)</span> is randomly selected between 0 and 2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population_size</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">population</span><span class="p">(</span><span class="n">pop_size</span> <span class="o">=</span> <span class="n">population_size</span><span class="p">):</span>
+    <span class="n">init_pop</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pop_size</span><span class="p">):</span>
+        <span class="n">init_pop</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">init_pop</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">initial_population</span> <span class="o">=</span> <span class="n">population</span><span class="p">(</span><span class="n">population_size</span><span class="p">)</span>
+<span class="n">initial_population</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(2.195254015709299, 1.430378732744839),
+ (2.4110535042865755, 1.0897663659937937),
+ (1.6946191973556188, 1.2917882261333122),
+ (1.75034884505077, 1.7835460015641595),
+ (3.854651042004117, 0.7668830376515554)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fitness-function">
+<h3>Fitness Function<a class="headerlink" href="#fitness-function" title="Permalink to this heading">#</a></h3>
+<p>The fitness function is the function that we aim to maximize.</p>
+<ul class="simple">
+<li><p>In this question, the function <span class="math notranslate nohighlight">\(f(x,y)\)</span> is the fitness function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="mi">24</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">initial_population</span><span class="p">]</span>
+<span class="n">f_values</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[19.081210627429286,
+ 17.484825150038,
+ 19.806370013216757,
+ 22.97572368695568,
+ 18.346269785696855]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parent-selection">
+<h3>Parent Selection<a class="headerlink" href="#parent-selection" title="Permalink to this heading">#</a></h3>
+<p>Using randomness and fitness function values, parents will be selected from the current population.</p>
+<ul class="simple">
+<li><p>Selected parents will then be used to generate new child pairs in the next step.</p></li>
+<li><p>There are various methods for choosing parents, but the main principle is to select pairs with higher fitness function values with a greater probability.</p></li>
+<li><p>Pairs with lower fitness values still have a chance to be chosen, but this probability will be smaller.</p></li>
+</ul>
+<p>In this setion, we will use the tournament method for parent selection.</p>
+<ul class="simple">
+<li><p>In this method, a specified number of <span class="math notranslate nohighlight">\((x, y)\)</span> pairs are selected randomly, and the pair with the highest fitness function value among them will be chosen as a parent.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">select_parent</span><span class="p">(</span><span class="n">pop_data</span><span class="p">,</span> <span class="n">f_val</span><span class="p">,</span> <span class="n">random_size</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">random_ind</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pop_data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_size</span><span class="p">)</span> 
+    <span class="n">f_v</span> <span class="o">=</span> <span class="p">[</span><span class="n">f_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">random_ind</span><span class="p">]</span>
+    <span class="n">max_f_v_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">f_v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pop_data</span><span class="p">[</span><span class="n">random_ind</span><span class="p">[</span><span class="n">max_f_v_index</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parents</span> <span class="o">=</span> <span class="p">[</span><span class="n">select_parent</span><span class="p">(</span><span class="n">initial_population</span><span class="p">,</span> <span class="n">f_values</span><span class="p">,</span> <span class="n">random_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span><span class="p">)]</span>
+<span class="n">parents</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(1.7434597010625072, 1.7838467100313442),
+ (0.25658998539513744, 1.3849442387400397),
+ (0.40090754924920446, 1.838965227489347),
+ (0.40090754924920446, 1.838965227489347),
+ (0.0767727932373341, 0.6031496333490987)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="crossover">
+<h3>Crossover<a class="headerlink" href="#crossover" title="Permalink to this heading">#</a></h3>
+<p>In this step, one new child pair will be produced from two parent pairs.</p>
+<ul class="simple">
+<li><p>The coordinates of the child will be generated using the mean values of the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates of the parent pairs.</p></li>
+<li><p>To introduce more randomness, we will also include a probability condition that allows one of the parents to be retained as the child.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">,</span> <span class="n">prob_crossover</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prob</span> <span class="o">&lt;</span> <span class="n">prob_crossover</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="n">parent1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">parent2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">parent1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">parent2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mutation">
+<h3>Mutation<a class="headerlink" href="#mutation" title="Permalink to this heading">#</a></h3>
+<p>Mutation is used to slightly change the child coordinates, like in nature.</p>
+<ul class="simple">
+<li><p>We will add a percentage defined by <em>pct_mutation</em> to each coordinate, resulting in a small change to the coordinates.</p></li>
+<li><p>A probability condition will be included to determine whether mutation will be applied.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mutuation</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">prob_mutuation</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">pct_mutuation</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">prob</span> <span class="o">&lt;</span> <span class="n">prob_mutuation</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">pct_mutuation</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">pct_mutuation</span><span class="p">),</span><span class="mi">2</span><span class="p">)]</span> 
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">child</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="next-generation">
+<h3>Next Generation<a class="headerlink" href="#next-generation" title="Permalink to this heading">#</a></h3>
+<p>The next (second) generation will be created from the initial population by performing crossover among consecutive pairs of parents.</p>
+<ul class="simple">
+<li><p>Mutation will also be applied after producing the child pairs.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">next_generation</span><span class="p">(</span><span class="n">parent_list</span><span class="p">):</span>
+    <span class="n">children_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parent_list</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="n">crossover</span><span class="p">(</span><span class="n">parent_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">parent_list</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob_crossover</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="n">crossover</span><span class="p">(</span><span class="n">parent_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">parent_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">prob_crossover</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+        <span class="n">children_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mutuation</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">children_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">next_generation</span><span class="p">(</span><span class="n">parents</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1.0000248432288223, 1.5843954743856918],
+ [0.36081679432428404, 1.6550687047404125],
+ [0.44099830417412494, 2],
+ [0.23884017124326928, 1.221057430419223],
+ [0.07094087234938665, 1.0207751960002387]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="iteration">
+<h3>Iteration<a class="headerlink" href="#iteration" title="Permalink to this heading">#</a></h3>
+<p>In this part, we will generate generations iteratively to enhance them, with the goal of finding the <span class="math notranslate nohighlight">\((x, y)\)</span> pair that has the highest fitness function value.</p>
+<p>We will follow the steps outlined above:</p>
+<ol class="arabic simple">
+<li><p><strong>Initialize Population</strong>: Generate an initial population of ((x, y)) pairs within the specified domain.</p></li>
+<li><p><strong>Parent Selection</strong>: Select parent pairs using the tournament method based on fitness values.</p></li>
+<li><p><strong>Crossover</strong>: Generate child pairs from the parents by averaging their coordinates, with a probability condition to retain one parent as a child.</p></li>
+<li><p><strong>Mutation</strong>: Slightly alter child coordinates by a set percentage, with a probability condition for mutation.</p></li>
+<li><p><strong>Iteration</strong>: Repeat these steps iteratively to produce new generations, improving toward the ((x, y)) pair with the highest fitness function value.</p></li>
+</ol>
+<p>Each iteration will bring the population closer to an optimal solution based on the fitness function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population_size</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">initial_population</span> <span class="o">=</span> <span class="n">population</span><span class="p">(</span><span class="n">population_size</span><span class="p">)</span>
+<span class="n">f_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">initial_population</span><span class="p">]</span>
+<span class="n">parents</span> <span class="o">=</span> <span class="p">[</span><span class="n">select_parent</span><span class="p">(</span><span class="n">initial_population</span><span class="p">,</span> <span class="n">f_values</span><span class="p">,</span> <span class="n">random_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span><span class="p">)]</span>
+
+<span class="n">max_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">f_values</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iteration: </span><span class="si">{</span><span class="mi">0</span><span class="si">:</span><span class="s1">&lt;3</span><span class="si">}</span><span class="s1"> --- x:</span><span class="si">{</span><span class="n">parents</span><span class="p">[</span><span class="n">max_ind</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, y:</span><span class="si">{</span><span class="n">parents</span><span class="p">[</span><span class="n">max_ind</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, f(x,y): </span><span class="si">{</span><span class="n">f_values</span><span class="p">[</span><span class="n">max_ind</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">):</span>
+    
+    <span class="n">parents</span> <span class="o">=</span> <span class="p">[</span><span class="n">select_parent</span><span class="p">(</span><span class="n">parents</span><span class="p">,</span> <span class="n">f_values</span><span class="p">,</span> <span class="n">random_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span><span class="p">)]</span>
+    <span class="n">parents</span> <span class="o">=</span> <span class="n">next_generation</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">5</span> == 0:
+        <span class="n">f_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">]</span>
+        <span class="n">max_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">f_values</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Iteration: </span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">&lt;3</span><span class="si">}</span><span class="s1"> --- x:</span><span class="si">{</span><span class="n">parents</span><span class="p">[</span><span class="n">max_ind</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, y:</span><span class="si">{</span><span class="n">parents</span><span class="p">[</span><span class="n">max_ind</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, f(x,y): </span><span class="si">{</span><span class="n">f_values</span><span class="p">[</span><span class="n">max_ind</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 0   --- x:0.20, y:1.87, f(x,y): 35.57
+Iteration: 5   --- x:0.90, y:1.63, f(x,y): 25.62
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 10  --- x:1.01, y:1.84, f(x,y): 27.14
+Iteration: 15  --- x:1.09, y:2.00, f(x,y): 28.49
+Iteration: 20  --- x:1.11, y:1.99, f(x,y): 28.27
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 25  --- x:1.13, y:2.00, f(x,y): 28.23
+Iteration: 30  --- x:1.17, y:2.00, f(x,y): 27.98
+Iteration: 35  --- x:1.21, y:2.00, f(x,y): 27.76
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 40  --- x:1.22, y:2.00, f(x,y): 27.72
+Iteration: 45  --- x:1.24, y:2.00, f(x,y): 27.60
+Iteration: 50  --- x:1.25, y:2.00, f(x,y): 27.55
+Iteration: 55  --- x:1.27, y:2.00, f(x,y): 27.43
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 60  --- x:1.29, y:2.00, f(x,y): 27.33
+Iteration: 65  --- x:1.30, y:2.00, f(x,y): 27.27
+Iteration: 70  --- x:1.30, y:2.00, f(x,y): 27.27
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 75  --- x:1.34, y:2.00, f(x,y): 27.09
+Iteration: 80  --- x:1.35, y:2.00, f(x,y): 27.00
+Iteration: 85  --- x:1.37, y:1.99, f(x,y): 26.82
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 90  --- x:1.40, y:2.00, f(x,y): 26.76
+Iteration: 95  --- x:1.44, y:2.00, f(x,y): 26.56
+Iteration: 100 --- x:1.44, y:2.00, f(x,y): 26.52
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="geneticalgorithm-library">
+<h2>geneticalgorithm Library<a class="headerlink" href="#geneticalgorithm-library" title="Permalink to this heading">#</a></h2>
+<p>The geneticalgorithm library is a useful tool for finding the minimum value of a function.</p>
+<ul class="simple">
+<li><p>You can install it in a Jupyter Notebook using the following command:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install geneticalgorithm
+</pre></div>
+</div>
+<p>To find the maximum value of a function, simply change the function to its negative, as maximizing <span class="math notranslate nohighlight">\(f(x)\)</span> is equivalent to minimizing <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geneticalgorithm</span> <span class="kn">import</span> <span class="n">geneticalgorithm</span> <span class="k">as</span> <span class="n">ga</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ga</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">variable_type</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">,</span> <span class="n">variable_boundaries</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]),</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> The best solution found:
+ [0.00315964 1.99964525]
+
+ Objective function:
+ -35.969769178617085
+</pre></div>
+</div>
+<img alt="_images/2dcf4f8d6dfb2852e491ab777bc18ed2b3488b40a1344cca523444c49e51cdf5.png" src="_images/2dcf4f8d6dfb2852e491ab777bc18ed2b3488b40a1344cca523444c49e51cdf5.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">output_dict</span></code> attribute provides the results of the optimization problem in a dictionary format.</p>
+<ul class="simple">
+<li><p>The value associated with the <code class="docutils literal notranslate"><span class="pre">&quot;function&quot;</span></code> key represents the minimum value of the negative of the function. Thus, the negative of this value is the maximum of the original function.</p></li>
+<li><p>The value associated with the <code class="docutils literal notranslate"><span class="pre">&quot;variable&quot;</span></code> key contains the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates of the point where the minimum/maximum value is achieved.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">output_dict</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;variable&#39;: array([0.00315964, 1.99964525]), &#39;function&#39;: -35.969769178617085}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Maximum value: </span><span class="si">{</span><span class="o">-</span><span class="n">model</span><span class="o">.</span><span class="n">output_dict</span><span class="p">[</span><span class="s2">&quot;function&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maximum value: 35.97
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Maximum at x: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">output_dict</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">,  y: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">output_dict</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maximum at x: 0.00,  y: 2.00
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="nlp.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Natural Language Processing</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#genetic-algorithm-from-scratch">Genetic Algorithm from Scratch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem">Optimization Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-population">Initial Population</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitness-function">Fitness Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parent-selection">Parent Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crossover">Crossover</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">Mutation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-generation">Next Generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iteration">Iteration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geneticalgorithm-library">geneticalgorithm Library</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yusuf Danisman
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
