@@ -182,11 +182,13 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="minmax.html">Scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans.html">K-means</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pca.html">PCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isolation_forest.html">Isolation Forest</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="neural_networks.html">Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">Model Evaluation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nlp.html">Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genetic_algorithm.html">Genetic Algorithm</a></li>
 </ul>
 
     </div>
@@ -404,7 +406,8 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_list</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;introduction to machine learning&#39;</span><span class="p">,</span> <span class="s1">&#39;acknowledgments&#39;</span><span class="p">,</span> <span class="s1">&#39;introduction to ml&#39;</span><span class="p">,</span> <span class="s1">&#39;supervised learning&#39;</span><span class="p">,</span> <span class="s1">&#39;knn&#39;</span><span class="p">,</span> 
               <span class="s1">&#39;linear regression&#39;</span><span class="p">,</span> <span class="s1">&#39;polynomial regression&#39;</span><span class="p">,</span> <span class="s1">&#39;decision tree&#39;</span><span class="p">,</span> <span class="s1">&#39;random forest&#39;</span><span class="p">,</span> <span class="s1">&#39;xgboost&#39;</span><span class="p">,</span> <span class="s1">&#39;logistic regression&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;unsupervised learning&#39;</span><span class="p">,</span> <span class="s1">&#39;scaling&#39;</span><span class="p">,</span> <span class="s1">&#39;kmeans&#39;</span><span class="p">,</span> <span class="s1">&#39;pca&#39;</span><span class="p">,</span> <span class="s1">&#39;neural networks&#39;</span><span class="p">,</span> <span class="s1">&#39;model evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;natural language processing&#39;</span><span class="p">]</span>
+              <span class="s1">&#39;unsupervised learning&#39;</span><span class="p">,</span> <span class="s1">&#39;scaling&#39;</span><span class="p">,</span> <span class="s1">&#39;kmeans&#39;</span><span class="p">,</span> <span class="s1">&#39;pca&#39;</span><span class="p">,</span> <span class="s1">&#39;neural networks&#39;</span><span class="p">,</span> <span class="s1">&#39;model evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;natural language processing&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;genetic algorithm&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -433,24 +436,25 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3f948672831f0caa6218757a1be9909f1dd0cb2c5e7ed1fdc9131bb6e1535c2b.png" src="_images/3f948672831f0caa6218757a1be9909f1dd0cb2c5e7ed1fdc9131bb6e1535c2b.png" />
-<img alt="_images/6269a95dbc4cc858dbaf4f7edb9132904f2f229a151c44242c320f7073eaa446.png" src="_images/6269a95dbc4cc858dbaf4f7edb9132904f2f229a151c44242c320f7073eaa446.png" />
-<img alt="_images/e7d50683298234714b891d2947e60a33d9440a1667d09f211834985bda3ff08f.png" src="_images/e7d50683298234714b891d2947e60a33d9440a1667d09f211834985bda3ff08f.png" />
-<img alt="_images/ad043345f6f0ef0c1ded4f012374594113642fa46d6e3a56c3cee7e4291f05cf.png" src="_images/ad043345f6f0ef0c1ded4f012374594113642fa46d6e3a56c3cee7e4291f05cf.png" />
-<img alt="_images/30fe6247100bd5620abb84f5b17a56fa279c5b272d075c5447d25fe2d8945c7c.png" src="_images/30fe6247100bd5620abb84f5b17a56fa279c5b272d075c5447d25fe2d8945c7c.png" />
-<img alt="_images/afe70b7bc20347ae72e34e9f81e2c92b7fa5c2c44c246ea90247fa88a4495f76.png" src="_images/afe70b7bc20347ae72e34e9f81e2c92b7fa5c2c44c246ea90247fa88a4495f76.png" />
-<img alt="_images/3d3602a6bdf9e1be8939cca51f36d4f84cb13c5fe3729543ab1f15a49045546e.png" src="_images/3d3602a6bdf9e1be8939cca51f36d4f84cb13c5fe3729543ab1f15a49045546e.png" />
-<img alt="_images/73fb3038a059db9eff21a4a4fccb2e3fc1276372e591be837a8e1c22cd0bc4dd.png" src="_images/73fb3038a059db9eff21a4a4fccb2e3fc1276372e591be837a8e1c22cd0bc4dd.png" />
-<img alt="_images/a00900b49ed6b45c33237b131f6e2697a92061132b2a5d149107cf3bd2489078.png" src="_images/a00900b49ed6b45c33237b131f6e2697a92061132b2a5d149107cf3bd2489078.png" />
-<img alt="_images/e6b81bdc7688beb4c73fb8915cc1530bc43104cfcd8b942a3c39754645f22449.png" src="_images/e6b81bdc7688beb4c73fb8915cc1530bc43104cfcd8b942a3c39754645f22449.png" />
-<img alt="_images/bb5e1b8fb7904f4e98a7b8f99379454a8a252282844822039c81133129faad97.png" src="_images/bb5e1b8fb7904f4e98a7b8f99379454a8a252282844822039c81133129faad97.png" />
-<img alt="_images/7e57d21304d6ad137e794263fd4bd418d6ba67e714a3544f63c95c47efec2168.png" src="_images/7e57d21304d6ad137e794263fd4bd418d6ba67e714a3544f63c95c47efec2168.png" />
-<img alt="_images/3ff7c12e40297581381b1a3ae9205cc75667f877c62cb882773951740a8dd888.png" src="_images/3ff7c12e40297581381b1a3ae9205cc75667f877c62cb882773951740a8dd888.png" />
-<img alt="_images/0df3fc8c39d4e335016f5e6d537134e43c4bd79aac8cc59aeff23f22058a81b9.png" src="_images/0df3fc8c39d4e335016f5e6d537134e43c4bd79aac8cc59aeff23f22058a81b9.png" />
-<img alt="_images/d516661b0c5ce7f48219f3a1513c11a80b426ee1cef2df5bd40412d6830274af.png" src="_images/d516661b0c5ce7f48219f3a1513c11a80b426ee1cef2df5bd40412d6830274af.png" />
-<img alt="_images/9fc859eedefe53f5494d41a3a49eb2b04478c0217ba4bfb5537164cbfea41f1c.png" src="_images/9fc859eedefe53f5494d41a3a49eb2b04478c0217ba4bfb5537164cbfea41f1c.png" />
-<img alt="_images/15b6b2b2d8119369f2b4593d3925cd80e8d6f39f2236a9af4cb9ff501bc2d399.png" src="_images/15b6b2b2d8119369f2b4593d3925cd80e8d6f39f2236a9af4cb9ff501bc2d399.png" />
-<img alt="_images/2aaf2d9424158c6eafbe016a5667899f297150efdf15f78f991339f2351130f0.png" src="_images/2aaf2d9424158c6eafbe016a5667899f297150efdf15f78f991339f2351130f0.png" />
+<img alt="_images/a5000c89f5be71588d462cae09161b81d37680911758845398734e0f89f8415f.png" src="_images/a5000c89f5be71588d462cae09161b81d37680911758845398734e0f89f8415f.png" />
+<img alt="_images/7318707e6e717f803b834b6e4d2dfd8e32636075f161d25a04dd71b12fe0b60c.png" src="_images/7318707e6e717f803b834b6e4d2dfd8e32636075f161d25a04dd71b12fe0b60c.png" />
+<img alt="_images/2ed6a24cad5876963ae311324e540660e50755e61e611b0d084181629e05cd30.png" src="_images/2ed6a24cad5876963ae311324e540660e50755e61e611b0d084181629e05cd30.png" />
+<img alt="_images/58d2add17dca5fee01789986acb94d2d560efaabe134c2e20aa428742570a82f.png" src="_images/58d2add17dca5fee01789986acb94d2d560efaabe134c2e20aa428742570a82f.png" />
+<img alt="_images/59ca7532ca7070d303db72262971f287a613341430e096194f3d93dcb28af459.png" src="_images/59ca7532ca7070d303db72262971f287a613341430e096194f3d93dcb28af459.png" />
+<img alt="_images/4ff76e056d3e34a2c9941418d062cbd3cde1e8c9d33ad6720a453ac6ee546aaa.png" src="_images/4ff76e056d3e34a2c9941418d062cbd3cde1e8c9d33ad6720a453ac6ee546aaa.png" />
+<img alt="_images/f94ca72f94b53ce1a7a385cf443a28c49c958d7f7d24f4cd764f84913046712d.png" src="_images/f94ca72f94b53ce1a7a385cf443a28c49c958d7f7d24f4cd764f84913046712d.png" />
+<img alt="_images/47e36bb385b8de74abab51dbc3d3dcc0dedc423736bc10e37cce771d6ae39f04.png" src="_images/47e36bb385b8de74abab51dbc3d3dcc0dedc423736bc10e37cce771d6ae39f04.png" />
+<img alt="_images/2424bb9cc50c58d8e4adb914602f4b1372a3f1225f45106268c4c0076caf6284.png" src="_images/2424bb9cc50c58d8e4adb914602f4b1372a3f1225f45106268c4c0076caf6284.png" />
+<img alt="_images/b702d726fff1e47fd9a011b241863901eb803e1d172fc85399b9cfb90a070b8a.png" src="_images/b702d726fff1e47fd9a011b241863901eb803e1d172fc85399b9cfb90a070b8a.png" />
+<img alt="_images/140a741a04462690867e36b2fe60e5a059e024dfb145a1f1e59d1c29142a5b47.png" src="_images/140a741a04462690867e36b2fe60e5a059e024dfb145a1f1e59d1c29142a5b47.png" />
+<img alt="_images/8d0e69586ff5471f83ef95fcd109361eb7b0a9bc424630434d7f9ee982f2b85e.png" src="_images/8d0e69586ff5471f83ef95fcd109361eb7b0a9bc424630434d7f9ee982f2b85e.png" />
+<img alt="_images/dbd94414353b74dca5e36f9d2e6e6b67af4ffdc28b01df9d36935404624dbf76.png" src="_images/dbd94414353b74dca5e36f9d2e6e6b67af4ffdc28b01df9d36935404624dbf76.png" />
+<img alt="_images/ac9024c947d5e3d69f1cb44aba3ea88f16d2f60294b6607900649c0907356561.png" src="_images/ac9024c947d5e3d69f1cb44aba3ea88f16d2f60294b6607900649c0907356561.png" />
+<img alt="_images/f95221054bcfd310c08633506179293244b28424363164ffbc80db16da23e7cb.png" src="_images/f95221054bcfd310c08633506179293244b28424363164ffbc80db16da23e7cb.png" />
+<img alt="_images/7d2d66c8929a95a3534bedcd7a582da14342766c18629da0b6272e39b5ba719b.png" src="_images/7d2d66c8929a95a3534bedcd7a582da14342766c18629da0b6272e39b5ba719b.png" />
+<img alt="_images/9e871d3ca44cd7aa4fc6d4bc8645548cdd2aa594cfe74ca1a1c2d85cba3135d3.png" src="_images/9e871d3ca44cd7aa4fc6d4bc8645548cdd2aa594cfe74ca1a1c2d85cba3135d3.png" />
+<img alt="_images/2abf868cd0f4f567582e1dadcdfd0bcef790284288646822d69917dfad04461f.png" src="_images/2abf868cd0f4f567582e1dadcdfd0bcef790284288646822d69917dfad04461f.png" />
+<img alt="_images/cba3cd0bbc2dba065e2d1fa142086ffa82180bd5dced018e1d601ef324f2662b.png" src="_images/cba3cd0bbc2dba065e2d1fa142086ffa82180bd5dced018e1d601ef324f2662b.png" />
 </div>
 </div>
 
